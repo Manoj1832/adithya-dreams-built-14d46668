@@ -32,22 +32,25 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "glass-effect shadow-medium" : "bg-transparent"
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        isScrolled ? "glass-effect shadow-large" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center shadow-gold transition-transform group-hover:scale-110">
-              <span className="text-2xl font-bold text-primary-foreground">A</span>
+            <div className="relative">
+              <div className="absolute inset-0 gold-gradient rounded-xl blur-md opacity-40 group-hover:opacity-60 transition-opacity"></div>
+              <div className="relative w-14 h-14 gold-gradient rounded-xl flex items-center justify-center shadow-gold transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                <span className="text-2xl font-bold text-primary-foreground font-heading">A</span>
+              </div>
             </div>
             <div className="hidden md:block">
-              <h1 className="text-xl font-heading font-bold text-foreground">
+              <h1 className="text-xl font-heading font-bold text-foreground leading-tight">
                 Adithya Constructions
               </h1>
-              <p className="text-xs text-muted-foreground">We build your dreams</p>
+              <p className="text-xs text-muted-foreground leading-tight">We build your dreams</p>
             </div>
           </Link>
 
