@@ -28,6 +28,8 @@ const Navbar = () => {
     { name: "Architectural Designing", path: "/services#architectural" },
     { name: "Structural Designing", path: "/services#structural" },
     { name: "Building Plan Approval", path: "/services#approval" },
+    { name: "Construction Packages", path: "/packages" },
+    { name: "Cost Calculator", path: "/construction-cost" },
   ];
 
   return (

@@ -16,6 +16,8 @@ import QualityChecklist from "./pages/QualityChecklist";
 import Contact from "./pages/Contact";
 import Careers from "./pages/Careers";
 import Blog from "./pages/Blog";
+import Packages from "./pages/Packages";
+import ConstructionCost from "./pages/ConstructionCost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +39,8 @@ const App = () => (
               <Route path="/appointment" element={<Appointment />} />
               <Route path="/emi-calculator" element={<EMICalculator />} />
               <Route path="/quality-checklist" element={<QualityChecklist />} />
+              <Route path="/packages" element={<Packages />} />
+              <Route path="/construction-cost" element={<ConstructionCost />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/blog" element={<Blog />} />
