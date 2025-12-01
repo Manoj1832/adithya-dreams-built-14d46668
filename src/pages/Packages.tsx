@@ -8,15 +8,15 @@ import { motion } from "framer-motion";
 
 const Packages = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" data-testid="page-packages">
       <section className="py-16 px-4 md:px-8 bg-gradient-to-b from-primary/5 to-background">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Badge variant="secondary" className="mb-4">Construction Packages</Badge>
-            <h1 className="text-4xl md:text-5xl heading-display mb-4">
+            <Badge variant="secondary" className="mb-4" data-testid="badge-packages">Construction Packages</Badge>
+            <h1 className="text-4xl md:text-5xl heading-display mb-4" data-testid="heading-packages">
               Our <span className="text-primary">Pricing Packages</span>
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8">

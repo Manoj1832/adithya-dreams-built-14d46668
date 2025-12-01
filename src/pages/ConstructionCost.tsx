@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { packages, addOns, formatCurrency } from "@/data/pricing";
+import { packages, addOns, formatCurrency, AddOn } from "@/data/pricing";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,126 +18,144 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Calculator, ChevronDown, MessageCircle, Building2, Car, Droplets, Recycle, Fence, Sun } from "lucide-react";
+import { Calculator, ChevronDown, MessageCircle, Building2, Car, Droplets, Recycle, Fence, Sun, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-interface CostBreakdown {
-  name: string;
-  amount: number;
-  calculation?: string;
-}
+const addOnIcons: Record<string, LucideIcon> = {
+  carParking: Car,
+  undergroundSump: Droplets,
+  wasteWaterTank: Recycle,
+  compoundWall: Fence,
+  solarPower: Sun,
+};
+
+const useSlider: Record<string, boolean> = {
+  carParking: false,
+  undergroundSump: true,
+  wasteWaterTank: true,
+  compoundWall: false,
+  solarPower: true,
+};
 
 const ConstructionCost = () => {
   const [constructionArea, setConstructionArea] = useState<number>(0);
   const [selectedPackage, setSelectedPackage] = useState<string>("");
-  const [carParking, setCarParking] = useState<number>(0);
-  const [undergroundSump, setUndergroundSump] = useState<number>(0);
-  const [wasteWaterTank, setWasteWaterTank] = useState<number>(0);
-  const [compoundWall, setCompoundWall] = useState<number>(0);
-  const [solarPower, setSolarPower] = useState<number>(0);
+  const [addOnValues, setAddOnValues] = useState<Record<string, number>>(
+    addOns.reduce((acc, addon) => ({ ...acc, [addon.id]: addon.defaultValue }), {})
+  );
   const [summaryOpen, setSummaryOpen] = useState(true);
 
   const selectedPkg = packages.find(p => p.id === selectedPackage);
 
-  const costBreakdown = useMemo<CostBreakdown[]>(() => {
-    const breakdown: CostBreakdown[] = [];
-    
-    if (constructionArea > 0 && selectedPkg) {
-      breakdown.push({
-        name: "Construction Area in Sq.Ft",
-        amount: constructionArea * selectedPkg.pricePerSqft,
-        calculation: `${constructionArea} sq.ft x ${formatCurrency(selectedPkg.pricePerSqft)}`
-      });
-    }
-
-    if (selectedPackage) {
-      breakdown.push({
-        name: "Select Construction Package",
-        amount: 0,
-        calculation: selectedPkg?.name || ""
-      });
-    }
-
-    if (carParking > 0) {
-      breakdown.push({
-        name: "Car Parking Area in Square Feet (Optional)",
-        amount: carParking * 1800,
-        calculation: `${carParking} sq.ft x ${formatCurrency(1800)}`
-      });
-    }
-
-    if (undergroundSump > 0) {
-      breakdown.push({
-        name: "How Many Litres Of Underground Sump Required? (Optional)",
-        amount: undergroundSump * 25,
-        calculation: `${undergroundSump} litres x ${formatCurrency(25)}`
-      });
-    }
-
-    if (wasteWaterTank > 0) {
-      breakdown.push({
-        name: "How Many Person Waste Water Recycling Tank Required? (Optional)",
-        amount: wasteWaterTank * 30000,
-        calculation: `${wasteWaterTank} unit x ${formatCurrency(30000)}`
-      });
-    }
-
-    if (compoundWall > 0) {
-      breakdown.push({
-        name: "How Much Feet Length Compound Wall Do You Require? (Optional)",
-        amount: compoundWall * 2000,
-        calculation: `${compoundWall} feet x ${formatCurrency(2000)}`
-      });
-    }
-
-    if (solarPower > 0) {
-      breakdown.push({
-        name: "How Much Solar Power Do You Require? (Optional)",
-        amount: solarPower * 75000,
-        calculation: `${solarPower} KW x ${formatCurrency(75000)}`
-      });
-    }
-
-    return breakdown;
-  }, [constructionArea, selectedPackage, selectedPkg, carParking, undergroundSump, wasteWaterTank, compoundWall, solarPower]);
-
-  const totalCost = useMemo(() => {
-    return costBreakdown.reduce((sum, item) => sum + item.amount, 0);
-  }, [costBreakdown]);
-
-  const getAddOnIcon = (id: string) => {
-    switch (id) {
-      case "carParking": return Car;
-      case "undergroundSump": return Droplets;
-      case "wasteWaterTank": return Recycle;
-      case "compoundWall": return Fence;
-      case "solarPower": return Sun;
-      default: return Building2;
-    }
+  const handleAddOnChange = (id: string, value: number, addon: AddOn) => {
+    const clampedValue = Math.min(addon.max, Math.max(addon.min, value));
+    setAddOnValues(prev => ({ ...prev, [id]: clampedValue }));
   };
 
+  const handleAreaChange = (value: number) => {
+    const clampedValue = Math.min(10000, Math.max(0, value));
+    setConstructionArea(clampedValue);
+  };
+
+  const constructionCost = useMemo(() => {
+    if (constructionArea > 0 && selectedPkg) {
+      return constructionArea * selectedPkg.pricePerSqft;
+    }
+    return 0;
+  }, [constructionArea, selectedPkg]);
+
+  const addOnCosts = useMemo(() => {
+    return addOns.map(addon => ({
+      addon,
+      value: addOnValues[addon.id] || 0,
+      cost: (addOnValues[addon.id] || 0) * addon.pricePerUnit,
+    }));
+  }, [addOnValues]);
+
+  const totalCost = useMemo(() => {
+    const addOnTotal = addOnCosts.reduce((sum, item) => sum + item.cost, 0);
+    return constructionCost + addOnTotal;
+  }, [constructionCost, addOnCosts]);
+
   const handleWhatsAppClick = () => {
-    const message = `Hi, I'm interested in construction services.%0A%0A*My Requirements:*%0AConstruction Area: ${constructionArea} sq.ft%0APackage: ${selectedPkg?.name || 'Not selected'}%0A${carParking > 0 ? `Car Parking: ${carParking} sq.ft%0A` : ''}${undergroundSump > 0 ? `Underground Sump: ${undergroundSump} litres%0A` : ''}${wasteWaterTank > 0 ? `Waste Water Tank: ${wasteWaterTank} units%0A` : ''}${compoundWall > 0 ? `Compound Wall: ${compoundWall} feet%0A` : ''}${solarPower > 0 ? `Solar Power: ${solarPower} KW%0A` : ''}%0A*Estimated Total: ${formatCurrency(totalCost)}*`;
+    const addOnDetails = addOnCosts
+      .filter(item => item.value > 0)
+      .map(item => `${item.addon.name}: ${item.value} ${item.addon.unit}`)
+      .join('%0A');
+    
+    const message = `Hi, I'm interested in construction services.%0A%0A*My Requirements:*%0AConstruction Area: ${constructionArea} sq.ft%0APackage: ${selectedPkg?.name || 'Not selected'}%0A${addOnDetails ? addOnDetails + '%0A' : ''}%0A*Estimated Total: ${formatCurrency(totalCost)}*`;
     window.open(`https://wa.me/916374507535?text=${message}`, '_blank');
   };
 
+  const renderAddOnInput = (addon: AddOn) => {
+    const Icon = addOnIcons[addon.id] || Building2;
+    const value = addOnValues[addon.id] || 0;
+    const isSlider = useSlider[addon.id];
+
+    return (
+      <div key={addon.id} data-testid={`addon-section-${addon.id}`}>
+        <div className="flex items-center justify-between mb-2">
+          <Label className="text-base font-semibold flex items-center gap-2">
+            <Icon className="w-4 h-4 text-muted-foreground" />
+            {addon.name} (optional)
+          </Label>
+          <Badge variant="outline" data-testid={`badge-value-${addon.id}`}>{value}</Badge>
+        </div>
+        
+        {isSlider ? (
+          <Slider
+            value={[value]}
+            onValueChange={(val) => handleAddOnChange(addon.id, val[0], addon)}
+            min={addon.min}
+            max={addon.max}
+            step={addon.id === 'undergroundSump' ? 1000 : 1}
+            className="mb-2"
+            data-testid={`slider-${addon.id}`}
+          />
+        ) : (
+          <>
+            <Input
+              type="number"
+              value={value || ""}
+              onChange={(e) => handleAddOnChange(addon.id, Number(e.target.value), addon)}
+              placeholder="0"
+              min={addon.min}
+              max={addon.max}
+              data-testid={`input-${addon.id}`}
+            />
+            <p className="text-xs text-muted-foreground mt-1">
+              Min: {addon.min} - Max: {addon.max}
+            </p>
+          </>
+        )}
+        
+        <p className="text-xs text-muted-foreground mt-1">{addon.description}</p>
+        {addon.id === 'carParking' && (
+          <p className="text-xs text-green-600 mt-1">
+            will be charged @{formatCurrency(addon.pricePerUnit)}/{addon.unit} approximately
+          </p>
+        )}
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen py-8 px-4 md:px-8">
+    <div className="min-h-screen py-8 px-4 md:px-8" data-testid="page-construction-cost">
       <div className="max-w-7xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <Badge variant="secondary" className="mb-4">
+          <Badge variant="secondary" className="mb-4" data-testid="badge-free-tool">
             <Calculator className="w-3 h-3 mr-1" />
             Free Tool
           </Badge>
-          <h1 className="text-3xl md:text-5xl heading-display mb-4">
+          <h1 className="text-3xl md:text-5xl heading-display mb-4" data-testid="heading-calculator">
             Construction Cost <span className="text-primary">Calculator</span>
           </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto" data-testid="text-description">
             Get an instant estimate for your construction project. Choose the package, type in the construction area and few other basic info to get the construction cost.
           </p>
         </motion.div>
@@ -149,10 +167,10 @@ const ConstructionCost = () => {
             transition={{ delay: 0.1 }}
             className="lg:col-span-3"
           >
-            <Card className="shadow-premium">
+            <Card className="shadow-premium" data-testid="card-calculator-form">
               <CardContent className="p-6 space-y-8">
                 <div className="space-y-4">
-                  <div>
+                  <div data-testid="field-construction-area">
                     <Label htmlFor="constructionArea" className="text-base font-semibold mb-2 block">
                       Construction area in sq.ft
                     </Label>
@@ -160,15 +178,17 @@ const ConstructionCost = () => {
                       id="constructionArea"
                       type="number"
                       value={constructionArea || ""}
-                      onChange={(e) => setConstructionArea(Math.min(10000, Math.max(0, Number(e.target.value))))}
+                      onChange={(e) => handleAreaChange(Number(e.target.value))}
                       placeholder="0"
+                      min={0}
+                      max={10000}
                       className="text-lg"
                       data-testid="input-construction-area"
                     />
                     <p className="text-xs text-muted-foreground mt-1">Min: 0 - Max: 10000</p>
                   </div>
 
-                  <div>
+                  <div data-testid="field-package-select">
                     <Label htmlFor="package" className="text-base font-semibold mb-2 block">
                       Select construction Package
                     </Label>
@@ -178,7 +198,11 @@ const ConstructionCost = () => {
                       </SelectTrigger>
                       <SelectContent>
                         {packages.map((pkg) => (
-                          <SelectItem key={pkg.id} value={pkg.id}>
+                          <SelectItem 
+                            key={pkg.id} 
+                            value={pkg.id}
+                            data-testid={`select-option-${pkg.id}`}
+                          >
                             {pkg.name} - {formatCurrency(pkg.pricePerSqft)}/sq.ft
                           </SelectItem>
                         ))}
@@ -187,101 +211,8 @@ const ConstructionCost = () => {
                   </div>
                 </div>
 
-                <div className="space-y-6 pt-4 border-t">
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <Label className="text-base font-semibold flex items-center gap-2">
-                        <Car className="w-4 h-4 text-muted-foreground" />
-                        Car Parking area in square feet (optional)
-                      </Label>
-                      <Badge variant="outline">{carParking}</Badge>
-                    </div>
-                    <Input
-                      type="number"
-                      value={carParking || ""}
-                      onChange={(e) => setCarParking(Math.min(10000, Math.max(0, Number(e.target.value))))}
-                      placeholder="0"
-                      data-testid="input-car-parking"
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">Min: 0 - Max: 10000</p>
-                    <p className="text-xs text-green-600 mt-1">car parking will be charged @Rs.1800/sft approximately</p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <Label className="text-base font-semibold flex items-center gap-2">
-                        <Droplets className="w-4 h-4 text-muted-foreground" />
-                        How many litres of underground sump required? (optional)
-                      </Label>
-                      <Badge variant="outline">{undergroundSump}</Badge>
-                    </div>
-                    <Slider
-                      value={[undergroundSump]}
-                      onValueChange={(value) => setUndergroundSump(value[0])}
-                      max={20000}
-                      step={1000}
-                      className="mb-2"
-                      data-testid="slider-underground-sump"
-                    />
-                    <p className="text-xs text-muted-foreground">An average family of 4 will require minimum of 10,000 litres</p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <Label className="text-base font-semibold flex items-center gap-2">
-                        <Recycle className="w-4 h-4 text-muted-foreground" />
-                        How many person waste water recycling tank required? (optional)
-                      </Label>
-                      <Badge variant="outline">{wasteWaterTank}</Badge>
-                    </div>
-                    <Slider
-                      value={[wasteWaterTank]}
-                      onValueChange={(value) => setWasteWaterTank(value[0])}
-                      max={10}
-                      step={1}
-                      className="mb-2"
-                      data-testid="slider-waste-water-tank"
-                    />
-                    <p className="text-xs text-muted-foreground">Waste water recycling tank is an alternative to septic tank. It recycles the waste water & recharges underground water table. It's not required if you have a drainage connection</p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <Label className="text-base font-semibold flex items-center gap-2">
-                        <Fence className="w-4 h-4 text-muted-foreground" />
-                        How much feet length compound wall do you require? (optional)
-                      </Label>
-                      <Badge variant="outline">{compoundWall}</Badge>
-                    </div>
-                    <Input
-                      type="number"
-                      value={compoundWall || ""}
-                      onChange={(e) => setCompoundWall(Math.min(1000, Math.max(0, Number(e.target.value))))}
-                      placeholder="0"
-                      data-testid="input-compound-wall"
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">Min: 0 - Max: 1000</p>
-                    <p className="text-xs text-muted-foreground">If plot size is 40x30, compound wall length will be 40+40+30+30=140 feet</p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <Label className="text-base font-semibold flex items-center gap-2">
-                        <Sun className="w-4 h-4 text-muted-foreground" />
-                        How much solar power do you require? (optional)
-                      </Label>
-                      <Badge variant="outline">{solarPower}</Badge>
-                    </div>
-                    <Slider
-                      value={[solarPower]}
-                      onValueChange={(value) => setSolarPower(value[0])}
-                      max={10}
-                      step={1}
-                      className="mb-2"
-                      data-testid="slider-solar-power"
-                    />
-                    <p className="text-xs text-muted-foreground">A 3BHK home will require 2KW solar power to run fans, lights and television during the daytime</p>
-                  </div>
+                <div className="space-y-6 pt-4 border-t" data-testid="addons-section">
+                  {addOns.map(renderAddOnInput)}
                 </div>
               </CardContent>
             </Card>
@@ -293,10 +224,13 @@ const ConstructionCost = () => {
             transition={{ delay: 0.2 }}
             className="lg:col-span-2"
           >
-            <Card className="shadow-premium sticky top-24">
+            <Card className="shadow-premium sticky top-24" data-testid="card-summary">
               <CardHeader className="pb-4">
                 <Collapsible open={summaryOpen} onOpenChange={setSummaryOpen}>
-                  <CollapsibleTrigger className="flex items-center justify-between w-full">
+                  <CollapsibleTrigger 
+                    className="flex items-center justify-between w-full"
+                    data-testid="button-toggle-summary"
+                  >
                     <CardTitle className="text-lg flex items-center gap-2">
                       <Calculator className="w-5 h-5 text-primary" />
                       Total Summary
@@ -305,7 +239,7 @@ const ConstructionCost = () => {
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <div className="mt-4 border-t pt-4">
-                      <table className="w-full" data-testid="cost-summary-table">
+                      <table className="w-full" data-testid="table-cost-summary">
                         <thead>
                           <tr className="text-sm text-muted-foreground">
                             <th className="text-left font-medium pb-2">Name</th>
@@ -313,34 +247,25 @@ const ConstructionCost = () => {
                           </tr>
                         </thead>
                         <tbody className="text-sm">
-                          <tr>
+                          <tr data-testid="row-construction-area">
                             <td className="py-2">Construction Area in Sq.Ft</td>
-                            <td className="text-right">{constructionArea}</td>
+                            <td className="text-right" data-testid="value-construction-area">{constructionArea}</td>
                           </tr>
-                          <tr>
+                          <tr data-testid="row-package">
                             <td className="py-2">Select Construction Package</td>
-                            <td className="text-right">{selectedPkg?.name || '-'}</td>
+                            <td className="text-right" data-testid="value-package">{selectedPkg?.name || '-'}</td>
                           </tr>
-                          <tr>
-                            <td className="py-2 text-muted-foreground">Car Parking Area In Square Feet (Optional)</td>
-                            <td className="text-right text-muted-foreground">{carParking > 0 ? `${carParking} x ${formatCurrency(1800)}` : '-'}</td>
-                          </tr>
-                          <tr>
-                            <td className="py-2 text-muted-foreground">How Many Litres Of Underground Sump Required? (Optional)</td>
-                            <td className="text-right text-muted-foreground">{undergroundSump > 0 ? `${undergroundSump} x ${formatCurrency(25)}` : '-'}</td>
-                          </tr>
-                          <tr>
-                            <td className="py-2 text-muted-foreground">How Many Person Waste Water Recycling Tank Required? (Optional)</td>
-                            <td className="text-right text-muted-foreground">{wasteWaterTank > 0 ? `${wasteWaterTank} x ${formatCurrency(30000)}` : '-'}</td>
-                          </tr>
-                          <tr>
-                            <td className="py-2 text-muted-foreground">How Much Feet Length Compound Wall Do You Require? (Optional)</td>
-                            <td className="text-right text-muted-foreground">{compoundWall > 0 ? `${compoundWall} x ${formatCurrency(2000)}` : '-'}</td>
-                          </tr>
-                          <tr>
-                            <td className="py-2 text-muted-foreground">How Much Solar Power Do You Require? (Optional)</td>
-                            <td className="text-right text-muted-foreground">{solarPower > 0 ? `${solarPower} x ${formatCurrency(75000)}` : '-'}</td>
-                          </tr>
+                          {addOns.map((addon) => {
+                            const value = addOnValues[addon.id] || 0;
+                            return (
+                              <tr key={addon.id} data-testid={`row-addon-${addon.id}`}>
+                                <td className="py-2 text-muted-foreground">{addon.name} (Optional)</td>
+                                <td className="text-right text-muted-foreground" data-testid={`value-addon-${addon.id}`}>
+                                  {value > 0 ? `${value} x ${formatCurrency(addon.pricePerUnit)}` : '-'}
+                                </td>
+                              </tr>
+                            );
+                          })}
                         </tbody>
                       </table>
                     </div>
@@ -352,7 +277,7 @@ const ConstructionCost = () => {
                 <div className="border-t pt-4">
                   <div className="flex items-center justify-between mb-6">
                     <span className="font-semibold">Estimated Total</span>
-                    <span className="text-2xl font-bold text-primary" data-testid="total-cost">
+                    <span className="text-2xl font-bold text-primary" data-testid="text-total-cost">
                       {formatCurrency(totalCost)}
                     </span>
                   </div>
@@ -367,7 +292,7 @@ const ConstructionCost = () => {
                   </Button>
                 </div>
 
-                <p className="text-xs text-muted-foreground text-center mt-4">
+                <p className="text-xs text-muted-foreground text-center mt-4" data-testid="text-disclaimer">
                   This is an estimated cost. Actual cost may vary based on site conditions and requirements.
                 </p>
               </CardContent>
