@@ -63,10 +63,11 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-card p-8 rounded-xl shadow-soft hover:shadow-medium transition-shadow group"
+                className="glass-card p-8 rounded-2xl shadow-soft hover:shadow-large transition-all duration-300 hover-lift group relative overflow-hidden"
               >
-                <div className="w-14 h-14 gold-gradient rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <service.icon className="w-7 h-7 text-primary-foreground" />
+                <div className="absolute top-0 right-0 w-32 h-32 gold-gradient-subtle rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative w-16 h-16 gold-gradient rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-gold">
+                  <service.icon className="w-8 h-8 text-primary-foreground" />
                 </div>
                 <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
                   {service.title}
@@ -117,10 +118,13 @@ const Index = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-center"
+              className="text-center group"
             >
-              <div className="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6 shadow-gold">
-                <span className="text-3xl font-bold text-primary-foreground">✓</span>
+              <div className="relative inline-block mb-6">
+                <div className="absolute inset-0 gold-gradient rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity animate-glow"></div>
+                <div className="relative w-24 h-24 gold-gradient rounded-full flex items-center justify-center shadow-gold hover:shadow-gold-hover transition-all duration-300 hover:scale-110">
+                  <span className="text-4xl font-bold text-primary-foreground">✓</span>
+                </div>
               </div>
               <h3 className="text-2xl font-heading font-semibold mb-3">70-Point Quality Checklist</h3>
               <p className="text-muted-foreground">

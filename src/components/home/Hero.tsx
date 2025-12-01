@@ -22,51 +22,67 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background-secondary to-background">
-      {/* 3D Spotlight Effect */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Animated Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background-secondary to-background-accent"></div>
+      
+      {/* Animated Grid Pattern */}
+      <div className="absolute inset-0 bg-grid opacity-30"></div>
+      
+      {/* 3D Spotlight Effect with Enhanced Glow */}
       <div
         ref={spotlightRef}
         className="absolute inset-0 transition-transform duration-300 ease-out pointer-events-none"
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] gradient-radial blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-2xl"></div>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 border border-primary/20 rounded-lg rotate-12"></div>
-      <div className="absolute bottom-20 right-10 w-32 h-32 border border-primary/20 rounded-lg -rotate-6"></div>
-      <div className="absolute top-1/3 right-20 w-16 h-16 bg-primary/10 rounded-full"></div>
+      {/* Floating Decorative Elements */}
+      <div className="absolute top-20 left-10 w-24 h-24 border-2 border-primary/30 rounded-2xl rotate-12 animate-float shadow-soft"></div>
+      <div className="absolute bottom-32 right-10 w-32 h-32 border-2 border-primary/30 rounded-2xl -rotate-6 animate-float shadow-soft" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-1/3 right-20 w-20 h-20 gold-gradient-subtle rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute bottom-1/4 left-20 w-16 h-16 gold-gradient-subtle rounded-full blur-xl animate-float" style={{ animationDelay: '3s' }}></div>
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Logo/Icon */}
+          {/* Enhanced Logo/Icon */}
           <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8 flex justify-center"
+            initial={{ scale: 0, opacity: 0, rotateY: -180 }}
+            animate={{ scale: 1, opacity: 1, rotateY: 0 }}
+            transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+            className="mb-10 flex justify-center"
           >
-            <div className="w-24 h-24 gold-gradient rounded-2xl flex items-center justify-center shadow-gold transform hover:rotate-6 transition-transform">
-              <span className="text-5xl font-bold text-primary-foreground">A</span>
+            <div className="relative group">
+              <div className="absolute inset-0 gold-gradient rounded-3xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity animate-glow"></div>
+              <div className="relative w-28 h-28 gold-gradient rounded-3xl flex items-center justify-center shadow-gold-hover transform hover:rotate-12 hover:scale-110 transition-all duration-300">
+                <span className="text-6xl font-bold text-primary-foreground font-heading">A</span>
+              </div>
             </div>
           </motion.div>
 
-          {/* Heading */}
+          {/* Enhanced Heading with Gradient */}
           <motion.h1
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-foreground mb-6 leading-tight"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold text-foreground mb-6 leading-[1.1]"
           >
             Building Dreams Into{" "}
-            <span className="text-primary">Reality</span>
+            <span className="relative inline-block">
+              <span className="relative z-10 bg-gradient-to-r from-primary via-primary-light to-primary bg-clip-text text-transparent">
+                Reality
+              </span>
+              <span className="absolute inset-0 blur-xl bg-primary/20"></span>
+            </span>
           </motion.h1>
 
-          {/* Tagline */}
+          {/* Enhanced Taglines */}
           <motion.p
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-4"
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-xl md:text-2xl lg:text-3xl text-foreground/80 mb-3 font-medium"
           >
             Premium Construction & Architecture Services
           </motion.p>
@@ -74,52 +90,59 @@ const Hero = () => {
           <motion.p
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-lg text-muted-foreground mb-8"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-base md:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto"
           >
-            Coimbatore & Salem's Trusted Construction Partner
+            Coimbatore & Salem's Most Trusted Construction Partner · 15+ Years Experience
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* Enhanced CTA Buttons */}
           <motion.div
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
-            <Button variant="gold" size="xl" className="group" asChild>
+            <Button variant="gold" size="xl" className="group relative overflow-hidden" asChild>
               <Link to="/projects">
-                View Our Projects
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <span className="relative z-10">View Our Projects</span>
+                <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-2 transition-transform duration-300" />
+                <span className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
               </Link>
             </Button>
-            <Button variant="outline-gold" size="xl" asChild>
+            <Button variant="outline-gold" size="xl" className="group" asChild>
               <Link to="/appointment">
-                <Calendar className="w-5 h-5" />
-                Book Appointment
+                <Calendar className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                <span>Book Appointment</span>
               </Link>
             </Button>
           </motion.div>
 
-          {/* Stats */}
+          {/* Enhanced Stats with Cards */}
           <motion.div
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="grid grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto"
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto"
           >
-            <div>
-              <p className="text-3xl md:text-4xl font-heading font-bold text-primary mb-2">500+</p>
-              <p className="text-sm text-muted-foreground">Projects Completed</p>
-            </div>
-            <div>
-              <p className="text-3xl md:text-4xl font-heading font-bold text-primary mb-2">15+</p>
-              <p className="text-sm text-muted-foreground">Years Experience</p>
-            </div>
-            <div>
-              <p className="text-3xl md:text-4xl font-heading font-bold text-primary mb-2">100%</p>
-              <p className="text-sm text-muted-foreground">Client Satisfaction</p>
-            </div>
+            {[
+              { value: "500+", label: "Projects Completed" },
+              { value: "15+", label: "Years Experience" },
+              { value: "100%", label: "Client Satisfaction" }
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+                className="glass-card p-4 md:p-6 rounded-2xl shadow-soft hover:shadow-medium transition-all duration-300 hover-lift"
+              >
+                <p className="text-3xl md:text-5xl font-heading font-bold bg-gradient-to-br from-primary to-primary-light bg-clip-text text-transparent mb-2">
+                  {stat.value}
+                </p>
+                <p className="text-xs md:text-sm text-muted-foreground font-medium">{stat.label}</p>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>
