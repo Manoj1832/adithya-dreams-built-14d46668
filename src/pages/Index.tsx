@@ -1,4 +1,5 @@
 import Hero from "@/components/home/Hero";
+import CraneLogo from "@/components/CraneLogo";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -36,6 +37,38 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Hero />
+
+      {/* Crane Logo Section */}
+      <section className="py-12 px-4 lg:px-8 bg-gradient-to-b from-primary/5 to-background">
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="w-48 h-48 md:w-64 md:h-64"
+            >
+              <CraneLogo />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-center md:text-left max-w-md"
+            >
+              <h3 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-3">
+                Building <span className="text-primary">Excellence</span>
+              </h3>
+              <p className="text-muted-foreground">
+                With precision engineering and unwavering commitment to quality, 
+                we lift your dreams from blueprint to reality.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Services Section */}
       <section className="py-20 px-4 lg:px-8">
