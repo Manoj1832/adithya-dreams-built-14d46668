@@ -198,6 +198,29 @@
   .animate-float { animation: float 6s ease-in-out infinite; }
   .animate-glow { animation: glow 3s ease-in-out infinite; }
   .animate-marquee { animation: marquee 28s linear infinite; }
+
+  /* Logo background + shine */
+  .logo-dark-bg {
+    background-color: #0f0f0f;
+    border-color: hsla(0,0%,100%,0.3);
+    color: white;
+  }
+  .logo-shine-7s {
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-shine-7s::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    height: 100%;
+    width: 150%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.0) 40%, rgba(255,255,255,0.65) 50%, rgba(255,255,255,0.0) 60%, transparent 100%);
+    transform: translateX(0);
+    animation: logoShineCycle 7s ease-in-out infinite;
+    pointer-events: none;
+  }
 }
 
 
@@ -232,6 +255,13 @@
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+/* Shine cycle with long idle and short sweep */
+@keyframes logoShineCycle {
+  0%, 85% { left: -150%; opacity: 0; }
+  90% { left: 0%; opacity: 0.6; }
+  100% { left: 150%; opacity: 0; }
 }
 
 @media (max-width: 480px) {

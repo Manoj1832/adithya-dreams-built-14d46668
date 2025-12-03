@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { sendContactEmail, type ContactFormData } from "@/lib/emailjs";
 import { sendContactViaWhatsApp } from "@/lib/whatsapp";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -88,17 +89,31 @@ const Contact = () => {
               transition={{ duration: 0.6 }}
               className="space-y-8"
             >
-              {/* Owner Card */}
               <div className="bg-card p-6 rounded-2xl shadow-medium border border-border flex items-center gap-6">
                 <div className="relative w-24 h-24 rounded-full p-[3px] gold-gradient-subtle shadow-gold">
-                  <div className="w-full h-full rounded-full overflow-hidden">
-                    <img src="/assets/owner.png" alt="Owner" className="w-full h-full object-cover" />
-                  </div>
+                  <Avatar className="w-full h-full">
+                    <AvatarImage src="/assets/owner.png" alt="Owner" />
+                    <AvatarFallback className="text-xl font-bold">B</AvatarFallback>
+                  </Avatar>
                 </div>
                 <div>
                   <h3 className="text-xl font-heading font-bold text-foreground">Er. BOOBALAN .V, B.E.</h3>
                   <p className="text-primary font-semibold">Founder & Proprietor</p>
                   <p className="text-sm text-muted-foreground">Leading Adithya with quality, innovation, and client-first values</p>
+                </div>
+              </div>
+
+              <div className="bg-card p-6 rounded-2xl shadow-medium border border-border flex items-center gap-6">
+                <div className="relative w-24 h-24 rounded-full p-[3px] gold-gradient-subtle shadow-gold">
+                  <Avatar className="w-full h-full">
+                    <AvatarImage src="" alt="Proprietor" />
+                    <AvatarFallback className="text-xl font-bold">P</AvatarFallback>
+                  </Avatar>
+                </div>
+                <div>
+                  <h3 className="text-xl font-heading font-bold text-foreground">Er. Premi T</h3>
+                  <p className="text-primary font-semibold">Proprietor • Operations & Client Relations</p>
+                  <p className="text-sm text-muted-foreground">Premium client experience, documentation, approvals, and on-site coordination</p>
                 </div>
               </div>
               <div>

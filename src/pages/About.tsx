@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Award, Target, Eye, Users, BadgeCheck } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const About = () => {
   return (
@@ -74,6 +75,43 @@ const About = () => {
                   <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                     With a Bachelor's degree in Engineering and over 8+ years of industry experience, Er. Boobalan brings technical expertise and visionary leadership to every project. His commitment to innovation, quality, and client satisfaction has been the cornerstone of Adithya's success.
                   </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Proprietor Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-white/10 backdrop-blur-md border border-white/20 p-8 md:p-12 rounded-2xl shadow-soft mb-16"
+            >
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="relative flex-shrink-0">
+                  <div className="absolute inset-0 gold-gradient-subtle rounded-full blur-xl opacity-40"></div>
+                  <Avatar className="relative w-28 h-28 md:w-32 md:h-32 border border-[#25D366]/40 shadow-gold">
+                    <AvatarImage src="" alt="Proprietor profile" />
+                    <AvatarFallback className="text-2xl font-bold bg-primary/10 text-primary">P</AvatarFallback>
+                  </Avatar>
+                </div>
+                <div className="w-full">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-2xl md:text-3xl font-heading font-semibold text-foreground">Er. Premi T</h3>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/30">
+                      Proprietor
+                    </span>
+                  </div>
+                  <p className="text-primary font-medium mb-4">Operations & Client Relations</p>
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                    Partnering leadership focused on premium client experience, project coordination, and quality assurance across residential and commercial works. Oversees consultation, documentation, approvals, and on-site communication to ensure timelines and standards are met.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 text-sm">
+                    <div className="glass-card rounded-lg px-3 py-2">Client Consultation & Engagement</div>
+                    <div className="glass-card rounded-lg px-3 py-2">Operations & Scheduling</div>
+                    <div className="glass-card rounded-lg px-3 py-2">Quality Checklist Coordination</div>
+                    <div className="glass-card rounded-lg px-3 py-2">Approvals & Documentation</div>
+                  </div>
                 </div>
               </div>
             </motion.div>

@@ -11,15 +11,11 @@ import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
 const categories = ["All", "Residential", "Commercial", "PEB", "Interior", "Renovation"];
 
 const projects = [
-  { id: 1, title: "Commercial Project", category: "Commercial", image: "/assets/project1(commercial).jpg" },
   { id: 2, title: "Residential Project", category: "Residential", image: "/assets/project2(residential).jpg" },
   { id: 3, title: "Residential Project", category: "Residential", image: "/assets/project3(residential).jpg" },
   { id: 4, title: "Residential Project", category: "Residential", image: "/assets/project4(residential).jpg" },
   { id: 5, title: "Commercial Project", category: "Commercial", image: "/assets/project5(commercial).jpg" },
   { id: 6, title: "Residential Project", category: "Residential", image: "/assets/project6(residential).jpg" },
-  { id: 7, title: "Commercial Project", category: "Commercial", image: "/assets/project7(commercial).jpg" },
-  { id: 8, title: "Residential Project", category: "Residential", image: "/assets/project8(residential).jpg" },
-  { id: 9, title: "Residential Project", category: "Residential", image: "/assets/project9(residential).jpg" },
   { id: 10, title: "Interior Project", category: "Interior", image: "/assets/int1.jpg" },
   { id: 11, title: "Interior Project", category: "Interior", image: "/assets/int2.jpg" },
   { id: 12, title: "Interior Project", category: "Interior", image: "/assets/int3.jpg" },
@@ -271,7 +267,7 @@ const Projects = () => {
               transition={{ delay: 0.1 }}
               className="text-center"
             >
-              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">80+</p>
+              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">20+</p>
               <p className="text-muted-foreground">Residential</p>
             </motion.div>
             <motion.div
@@ -281,7 +277,7 @@ const Projects = () => {
               transition={{ delay: 0.2 }}
               className="text-center"
             >
-              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">35+</p>
+              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">5+</p>
               <p className="text-muted-foreground">Commercial</p>
             </motion.div>
             <motion.div
@@ -291,7 +287,7 @@ const Projects = () => {
               transition={{ delay: 0.3 }}
               className="text-center"
             >
-              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">35+</p>
+              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">5+</p>
               <p className="text-muted-foreground">Others</p>
             </motion.div>
           </div>

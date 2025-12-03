@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Footer = () => {
   return (
@@ -14,11 +15,28 @@ const Footer = () => {
             <p className="text-sm text-background/80 mb-4">
               We build your dreams with precision, quality, and dedication.
             </p>
-            <p className="text-sm text-background/70">
-              Er. BOOBALAN .V, B.E.
-              <br />
-              Proprietor
-            </p>
+            <div className="flex items-center gap-3 mb-2">
+              <Avatar className="h-8 w-8 border border-background/30">
+                <AvatarImage src="/assets/owner.png" alt="Owner" />
+                <AvatarFallback className="text-xs font-bold">B</AvatarFallback>
+              </Avatar>
+              <p className="text-sm text-background/80">
+                Er. BOOBALAN .V, B.E.
+                <br />
+                Proprietor
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <Avatar className="h-8 w-8 border border-background/30">
+                <AvatarImage src="" alt="Proprietor" />
+                <AvatarFallback className="text-xs font-bold">P</AvatarFallback>
+              </Avatar>
+              <p className="text-sm text-background/80">
+                Er. Premi T
+                <br />
+                Proprietor • Operations & Client Relations
+              </p>
+            </div>
           </div>
 
           {/* Quick Links */}
