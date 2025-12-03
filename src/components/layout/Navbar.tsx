@@ -62,7 +62,7 @@ const Navbar = () => {
             <Link to="/" className="flex items-center gap-3 group">
               <div className="relative">
                 <div className="absolute inset-0 gold-gradient-subtle rounded-xl blur-xl opacity-20 z-0"></div>
-                <div className="relative w-11 h-11 md:w-14 md:h-14 rounded-xl flex items-center justify-center bg-card border border-white/20 shadow-soft z-10">
+                <div className="relative w-11 h-11 md:w-14 md:h-14 rounded-xl flex items-center justify-center logo-dark-bg border shadow-soft z-10 logo-shine-7s">
                   <img
                     src="/assets/logo.png"
                     alt="Adithya Constructions Logo"
