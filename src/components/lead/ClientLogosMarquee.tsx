@@ -41,7 +41,7 @@ const ClientLogosMarquee = () => {
           <div className="absolute left-0 top-0 h-full w-8 md:w-16 bg-gradient-to-r from-background to-transparent pointer-events-none" />
           <div className="absolute right-0 top-0 h-full w-8 md:w-16 bg-gradient-to-l from-background to-transparent pointer-events-none" />
 
-          <div className="flex items-center gap-6 md:gap-10 py-6 md:py-8 animate-[marquee_28s_linear_infinite]" style={{ willChange: 'transform' }}>
+          <div className="flex items-center gap-6 md:gap-10 py-6 md:py-8 animate-[marquee_18s_linear_infinite] md:animate-[marquee_22s_linear_infinite] lg:animate-[marquee_24s_linear_infinite]" style={{ willChange: 'transform' }}>
             {loopLogos.map((src, i) => (
               <div key={`${src}-${i}`} className="shrink-0">
                 <div className="glass-card shadow-soft hover:shadow-medium transition-all duration-300 hover-lift rounded-xl p-3 border border-border">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,18 @@ const QuickInquiryButton = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sendMethod, setSendMethod] = useState<"email" | "whatsapp">("email");
   const { toast } = useToast();
+
+  // Auto-open once shortly after load (per session) so users don't miss it
+  useEffect(() => {
+    const shown = sessionStorage.getItem("quickInquiryShown");
+    const timer = setTimeout(() => {
+      if (!shown) {
+        setIsOpen(true);
+        sessionStorage.setItem("quickInquiryShown", "true");
+      }
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,7 +78,7 @@ const QuickInquiryButton = () => {
         className="fixed bottom-[calc(env(safe-area-inset-bottom)+5rem)] left-3 z-50 group"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.5, type: "spring", bounce: 0.5 }}
+        transition={{ delay: 0.3, duration: 0.5, type: "spring", bounce: 0.5 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >

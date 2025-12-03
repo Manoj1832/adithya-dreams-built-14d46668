@@ -210,8 +210,8 @@ export const pricingTiers: PricingTier[] = [
   {
     id: "basic",
     name: "Basic",
-    pricePerSqft: 1899,
-    originalPrice: 1999,
+    pricePerSqft: 2099,
+    originalPrice: 2299,
     features: [
       "RCC framed structure",
       "Basic materials",
@@ -232,8 +232,8 @@ export const pricingTiers: PricingTier[] = [
   {
     id: "standard",
     name: "Standard",
-    pricePerSqft: 2099,
-    originalPrice: 2299,
+    pricePerSqft: 2299,
+    originalPrice: 2499,
     features: [
       "All features in basic package",
       "Free Smart Home Automation",
@@ -255,8 +255,8 @@ export const pricingTiers: PricingTier[] = [
   {
     id: "premium",
     name: "Premium",
-    pricePerSqft: 2449,
-    originalPrice: 2599,
+    pricePerSqft: 2499,
+    originalPrice: 2999,
     features: [
       "All features in standard package",
       "Granite flooring",
