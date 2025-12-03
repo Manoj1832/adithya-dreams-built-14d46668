@@ -105,13 +105,11 @@
 
   img, iframe {
     max-width: 100%;
-    width: 100%;
     height: auto;
   }
 
-  section, .container {
-    width: min(100% - 20px, 1200px);
-    margin-inline: auto;
+  section {
+    width: 100%;
   }
 }
 
@@ -239,5 +237,11 @@
 @media (max-width: 480px) {
   body {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
   }
 }
