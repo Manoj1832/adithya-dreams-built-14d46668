@@ -68,6 +68,14 @@ const Projects = () => {
     }
   }, [location.search, location.hash, normalizedCategories]);
 
+  // Close viewer if current image not present in new filtered set
+  useEffect(() => {
+    if (viewerOpen && viewerId !== null) {
+      const exists = filteredProjects.some((p) => p.id === viewerId);
+      if (!exists) setViewerOpen(false);
+    }
+  }, [filteredProjects, viewerOpen, viewerId]);
+
   useEffect(() => {
     const currentParam = new URLSearchParams(location.search).get("type")?.toLowerCase() || "";
     const nextParam = selectedCategory !== "All" ? selectedCategory.toLowerCase() : "";
@@ -78,7 +86,7 @@ const Projects = () => {
   }, [selectedCategory, navigate, location.search]);
 
   const [viewerOpen, setViewerOpen] = useState(false);
-  const [viewerIndex, setViewerIndex] = useState<number | null>(null);
+  const [viewerId, setViewerId] = useState<number | null>(null);
 
   const filteredProjects =
     selectedCategory === "All"
@@ -98,7 +106,7 @@ const Projects = () => {
         transition={{ duration: 0.4, delay: index * 0.05 }}
         className="group cursor-pointer"
         onClick={() => {
-          setViewerIndex(index);
+          setViewerId(project.id);
           setViewerOpen(true);
         }}
       >
@@ -203,47 +211,50 @@ const Projects = () => {
             <X className="h-4 w-4" />
             <span className="sr-only">Close</span>
           </DialogClose>
-          {viewerIndex !== null && (
-            <div className="relative w-full h-[80vh] flex items-center justify-center">
-              <img
-                src={filteredProjects[viewerIndex].image}
-                alt={filteredProjects[viewerIndex].title}
-                className="max-h-full max-w-full object-contain rounded-xl shadow-elevated"
-                loading="eager"
-              />
-              {/* Prev/Next Controls */}
-              <button
-                aria-label="Previous"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setViewerIndex((prev) => {
-                    if (prev === null) return 0;
-                    return (prev - 1 + filteredProjects.length) % filteredProjects.length;
-                  });
-                }}
-                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-background/70 backdrop-blur-md border border-border rounded-full px-3 py-2 text-sm shadow-medium hover:bg-background"
-              >
-                Prev
-              </button>
-              <button
-                aria-label="Next"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setViewerIndex((prev) => {
-                    if (prev === null) return 0;
-                    return (prev + 1) % filteredProjects.length;
-                  });
-                }}
-                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-background/70 backdrop-blur-md border border-border rounded-full px-3 py-2 text-sm shadow-medium hover:bg-background"
-              >
-                Next
-              </button>
-              {/* Caption */}
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 glass-card rounded-full px-4 py-2 text-sm shadow-gold">
-                {filteredProjects[viewerIndex].title}
+          {(() => {
+            const currentIdx = viewerId !== null ? filteredProjects.findIndex((p) => p.id === viewerId) : -1;
+            const current = currentIdx >= 0 ? filteredProjects[currentIdx] : null;
+            if (!current) return null;
+            return (
+              <div className="relative w-full h-[80vh] flex items-center justify-center">
+                <img
+                  src={current.image}
+                  alt={current.title}
+                  className="max-h-full max-w-full object-contain rounded-xl shadow-elevated"
+                  loading="eager"
+                />
+                {/* Prev/Next Controls */}
+                <button
+                  aria-label="Previous"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const idx = currentIdx;
+                    const nextIdx = (idx - 1 + filteredProjects.length) % filteredProjects.length;
+                    setViewerId(filteredProjects[nextIdx].id);
+                  }}
+                  className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-background/70 backdrop-blur-md border border-border rounded-full px-3 py-2 text-sm shadow-medium hover:bg-background"
+                >
+                  Prev
+                </button>
+                <button
+                  aria-label="Next"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const idx = currentIdx;
+                    const nextIdx = (idx + 1) % filteredProjects.length;
+                    setViewerId(filteredProjects[nextIdx].id);
+                  }}
+                  className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-background/70 backdrop-blur-md border border-border rounded-full px-3 py-2 text-sm shadow-medium hover:bg-background"
+                >
+                  Next
+                </button>
+                {/* Caption */}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 glass-card rounded-full px-4 py-2 text-sm shadow-gold">
+                  {current.title}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
         </DialogContent>
       </Dialog>
 
