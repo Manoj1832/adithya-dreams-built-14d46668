@@ -44,6 +44,7 @@ const Navbar = () => {
           ? "bg-background/80 backdrop-blur-md border-b border-white/10 shadow-large"
           : "bg-transparent"
       }`}
+      style={{ paddingTop: 'env(safe-area-inset-top)' }}
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">

@@ -106,7 +106,7 @@ const Hero = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="col-span-12 lg:col-span-6 flex lg:justify-end"
+            className="col-span-12 lg:col-span-6 flex justify-center lg:justify-end"
           >
             <motion.div
               whileHover={{ scale: 1.02 }}
