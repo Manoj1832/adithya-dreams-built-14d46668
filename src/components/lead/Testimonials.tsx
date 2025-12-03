@@ -103,7 +103,7 @@ const Testimonials = () => {
           className="text-center mt-12"
         >
           <p className="text-muted-foreground mb-4">
-            Join <span className="text-primary font-semibold">150+</span> satisfied clients
+            Join <span className="text-primary font-semibold">30+</span> satisfied clients
           </p>
           <div className="flex items-center justify-center gap-1">
             {[...Array(5)].map((_, i) => (

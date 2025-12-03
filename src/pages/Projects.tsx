@@ -202,7 +202,7 @@ const Projects = () => {
               viewport={{ once: true }}
               className="text-center"
             >
-              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">150+</p>
+              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">30+</p>
               <p className="text-muted-foreground">Total Projects</p>
             </motion.div>
             <motion.div
