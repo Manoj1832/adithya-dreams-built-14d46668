@@ -7,7 +7,7 @@ const services = [
   {
     id: "turnkey",
     icon: Home,
-    title: "Turnkey House Construction",
+    title: "Residential House Construction",
     description: "Complete end-to-end residential construction services from design to handover.",
     features: [
       "Complete project management",
@@ -50,9 +50,8 @@ const services = [
     description: "Robust structural engineering ensuring safety, durability, and compliance.",
     features: [
       "Load bearing analysis",
-      "Foundation design",
-      "Earthquake-resistant structures",
-      "Code compliance",
+      "Framed Structure analysis",
+      "Steel Structure analysis(PEB)",
       "Cost-effective solutions",
     ],
   },

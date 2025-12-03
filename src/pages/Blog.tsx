@@ -10,7 +10,7 @@ const blogPosts = [
     date: "December 15, 2024",
     readTime: "5 min read",
     category: "Construction Tips",
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=400&fit=crop",
+    image: "/assets/pro1.jpg",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const blogPosts = [
     date: "December 10, 2024",
     readTime: "7 min read",
     category: "Regulations",
-    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=400&fit=crop",
+    image: "/assets/pro2.jpg",
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const blogPosts = [
     date: "December 5, 2024",
     readTime: "6 min read",
     category: "Architecture",
-    image: "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=400&fit=crop",
+    image: "/assets/pro3.jpg",
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ const blogPosts = [
     date: "November 28, 2024",
     readTime: "5 min read",
     category: "Quality",
-    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=400&fit=crop",
+    image: "/assets/pro4.jpg",
   },
   {
     id: 5,
@@ -46,7 +46,7 @@ const blogPosts = [
     date: "November 20, 2024",
     readTime: "8 min read",
     category: "Finance",
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=400&fit=crop",
+    image: "/assets/pro5.jpg",
   },
   {
     id: 6,
@@ -55,7 +55,7 @@ const blogPosts = [
     date: "November 15, 2024",
     readTime: "6 min read",
     category: "Sustainability",
-    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=400&fit=crop",
+    image: "/assets/pro6.jpg",
   },
 ];
 
@@ -98,7 +98,7 @@ const Blog = () => {
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-150"
                   />
                 </div>
                 <div className="p-6">

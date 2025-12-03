@@ -22,7 +22,7 @@ const categories = [
       "M20 grade concrete for columns",
       "M25 grade for beams and slabs",
       "Cement quality certification",
-      "Steel quality certification (Fe500/Fe550)",
+      "Steel quality certification (Fe150/Fe550)",
       "Proper concrete mix ratio",
       "Concrete cube testing",
       "28-day curing protocol",

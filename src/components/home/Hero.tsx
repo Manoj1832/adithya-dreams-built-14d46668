@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar } from "lucide-react";
+import { Phone, Layers, ShieldCheck, BadgeCheck } from "lucide-react";
 
 const Hero = () => {
   const spotlightRef = useRef<HTMLDivElement>(null);
@@ -22,129 +22,142 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background-secondary to-background-accent"></div>
-      
-      {/* Animated Grid Pattern */}
-      <div className="absolute inset-0 bg-grid opacity-30"></div>
-      
-      {/* 3D Spotlight Effect with Enhanced Glow */}
+    <section className="relative w-full pt-[120px] pb-[140px] flex items-center justify-center overflow-hidden">
+
+      {/* --- Premium Background Layers --- */}
+      <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-white"></div>
+      <div className="absolute inset-0 opacity-[0.08] bg-[url('/assets/textures/noise.png')] pointer-events-none"></div>
+
+      {/* Spotlight effect */}
       <div
         ref={spotlightRef}
-        className="absolute inset-0 transition-transform duration-300 ease-out pointer-events-none"
-      >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] gradient-radial blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-2xl"></div>
-      </div>
-
-      {/* Floating Decorative Elements */}
-      <div className="absolute top-20 left-10 w-24 h-24 border-2 border-primary/30 rounded-2xl rotate-12 animate-float shadow-soft"></div>
-      <div className="absolute bottom-32 right-10 w-32 h-32 border-2 border-primary/30 rounded-2xl -rotate-6 animate-float shadow-soft" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-1/3 right-20 w-20 h-20 gold-gradient-subtle rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
-      <div className="absolute bottom-1/4 left-20 w-16 h-16 gold-gradient-subtle rounded-full blur-xl animate-float" style={{ animationDelay: '3s' }}></div>
+        className="absolute w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl -z-10"
+      ></div>
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Enhanced Logo/Icon */}
-          <motion.div
-            initial={{ scale: 0, opacity: 0, rotateY: -180 }}
-            animate={{ scale: 1, opacity: 1, rotateY: 0 }}
-            transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-            className="mb-10 flex justify-center"
-          >
-            <div className="relative group">
-              <div className="absolute inset-0 gold-gradient rounded-3xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity animate-glow"></div>
-              <div className="relative w-28 h-28 gold-gradient rounded-3xl flex items-center justify-center shadow-gold-hover transform hover:rotate-12 hover:scale-110 transition-all duration-300">
-                <span className="text-6xl font-bold text-primary-foreground font-heading">A</span>
-              </div>
-            </div>
-          </motion.div>
 
-          {/* Enhanced Heading with Gradient */}
-          <motion.h1
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold text-foreground mb-6 leading-[1.1]"
-          >
-            Building Dreams Into{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10 bg-gradient-to-r from-primary via-primary-light to-primary bg-clip-text text-transparent">
-                Reality
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-10 lg:max-w-[1200px] mx-auto">
+
+          {/* --- Left Content --- */}
+          <div className="col-span-12 lg:col-span-6 text-center lg:text-left">
+
+            <motion.h1
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="text-[36px] md:text-[48px] lg:text-[60px] tracking-tight font-heading font-bold text-neutral-900 leading-[1.1]"
+            >
+              Premium Construction
+              <br />
+              <span className="bg-gradient-to-r from-primary to-neutral-700 bg-clip-text text-transparent">
+                Delivered On-Time
               </span>
-              <span className="absolute inset-0 blur-xl bg-primary/20"></span>
-            </span>
-          </motion.h1>
+            </motion.h1>
 
-          {/* Enhanced Taglines */}
-          <motion.p
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-xl md:text-2xl lg:text-3xl text-foreground/80 mb-3 font-medium"
-          >
-            Premium Construction & Architecture Services
-          </motion.p>
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="mt-5 text-neutral-600 max-w-[450px] mx-auto lg:mx-0 text-[17px] leading-relaxed"
+            >
+              Residential, commercial, and structural projects built with 
+              premium materials, strict engineering standards, and guaranteed timelines.
+            </motion.p>
 
-          <motion.p
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-base md:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto"
-          >
-            Coimbatore & Salem's Most Trusted Construction Partner · 15+ Years Experience
-          </motion.p>
-
-          {/* Enhanced CTA Buttons */}
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
-          >
-            <Button variant="gold" size="xl" className="group relative overflow-hidden" asChild>
-              <Link to="/projects">
-                <span className="relative z-10">View Our Projects</span>
-                <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-2 transition-transform duration-300" />
-                <span className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
-              </Link>
-            </Button>
-            <Button variant="outline-gold" size="xl" className="group" asChild>
-              <Link to="/appointment">
-                <Calendar className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                <span>Book Appointment</span>
-              </Link>
-            </Button>
-          </motion.div>
-
-          {/* Enhanced Stats with Cards */}
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto"
-          >
-            {[
-              { value: "500+", label: "Projects Completed" },
-              { value: "15+", label: "Years Experience" },
-              { value: "100%", label: "Client Satisfaction" }
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
-                className="glass-card p-4 md:p-6 rounded-2xl shadow-soft hover:shadow-medium transition-all duration-300 hover-lift"
+            {/* Buttons */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            >
+              <Button
+                asChild
+                className="h-12 rounded-full px-7 bg-neutral-900 text-white hover:bg-neutral-800 shadow-[0_8px_24px_rgba(0,0,0,0.15)] hover:translate-y-[-2px] transition-all"
               >
-                <p className="text-3xl md:text-5xl font-heading font-bold bg-gradient-to-br from-primary to-primary-light bg-clip-text text-transparent mb-2">
-                  {stat.value}
-                </p>
-                <p className="text-xs md:text-sm text-muted-foreground font-medium">{stat.label}</p>
-              </motion.div>
-            ))}
+                <Link to="/appointment">Book Free Consultation</Link>
+              </Button>
+
+              <a href="tel:6374507535">
+                <Button
+                  variant="outline"
+                  className="h-12 rounded-full px-7 border border-neutral-300 text-neutral-900 bg-white hover:bg-neutral-100 shadow-md hover:translate-y-[-2px] transition-all flex gap-2"
+                >
+                  <Phone className="w-[20px] h-[20px]" />
+                  Call: 63745 07535
+                </Button>
+              </a>
+            </motion.div>
+
+            {/* Trust Badge */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-neutral-500 text-sm mt-5 flex items-center gap-2 justify-center lg:justify-start"
+            >
+              <BadgeCheck className="w-4 h-4 text-primary" />
+              150+ Completed Projects • Since 2012
+            </motion.p>
+          </div>
+
+          {/* --- Hero Image --- */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="col-span-12 lg:col-span-6 flex lg:justify-end"
+          >
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", duration: 0.6 }}
+              className="relative rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.12)] border border-neutral-200"
+            >
+              <img
+                src="/assets/hero1.jpg"
+
+                alt="Construction Hero"
+                className="w-full max-w-[520px] h-auto object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </motion.div>
           </motion.div>
         </div>
+
+        {/* Stats Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+          className="mt-14 flex justify-center"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            {[
+              { value: "M20", label: "Concrete Grade", icon: Layers },
+              { value: "Fe550", label: "Steel Quality", icon: ShieldCheck },
+              { value: "IS Codes", label: "Compliance", icon: BadgeCheck },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ scale: 0.92, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
+                className="group w-[9.5rem] h-[9.5rem] sm:w-[10.5rem] sm:h-[10.5rem] md:w-[11rem] md:h-[11rem] rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-800 text-white p-5 sm:p-6 shadow-xl hover:scale-[1.04] hover:shadow-2xl transition-all text-center"
+              >
+                <div className="w-10 h-10 mx-auto mb-3 bg-white/10 rounded-full flex items-center justify-center">
+                  <stat.icon className="w-6 h-6 text-yellow-300" />
+                </div>
+                <p className="text-[26px] font-heading font-bold">
+                  {stat.value}
+                </p>
+                <p className="text-[13px] mt-1 opacity-70 tracking-wide uppercase">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
       </div>
 
       {/* Scroll Indicator */}
@@ -154,11 +167,11 @@ const Hero = () => {
         transition={{ delay: 1.5, duration: 0.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <div className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center">
+        <div className="w-6 h-10 border-2 border-neutral-300 rounded-full flex justify-center">
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1.5 h-1.5 bg-primary rounded-full mt-2"
+            className="w-1.5 h-1.5 bg-neutral-600 rounded-full mt-2"
           ></motion.div>
         </div>
       </motion.div>

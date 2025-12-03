@@ -2,6 +2,13 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Briefcase, Users, TrendingUp, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+import { sendCareerApplicationViaWhatsApp } from "@/lib/whatsapp-utils";
 
 const positions = [
   {
@@ -53,6 +60,35 @@ const benefits = [
 ];
 
 const Careers = () => {
+  const { toast } = useToast();
+  const [open, setOpen] = useState(false);
+  const [selectedPosition, setSelectedPosition] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleApplySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    const form = new FormData(e.currentTarget);
+    const data = {
+      position: selectedPosition,
+      name: (form.get("name") as string) || "",
+      email: (form.get("email") as string) || "",
+      phone: (form.get("phone") as string) || "",
+      location: (form.get("location") as string) || "",
+      experience: (form.get("experience") as string) || "",
+      resumeLink: (form.get("resumeLink") as string) || "",
+      message: (form.get("message") as string) || "",
+    };
+    try {
+      sendCareerApplicationViaWhatsApp(data);
+      toast({ title: "Opening WhatsApp...", description: "You'll be redirected to send your application." });
+      setOpen(false);
+      (e.target as HTMLFormElement).reset();
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="pt-20 min-h-screen">
       {/* Hero Section */}
@@ -160,8 +196,14 @@ const Careers = () => {
                       </div>
                     </div>
                   </div>
-                  <Button variant="outline-gold" asChild>
-                    <Link to="/contact">Apply Now</Link>
+                  <Button
+                    variant="outline-gold"
+                    onClick={() => {
+                      setSelectedPosition(position.title);
+                      setOpen(true);
+                    }}
+                  >
+                    Apply Now
                   </Button>
                 </div>
               </motion.div>
@@ -192,6 +234,66 @@ const Careers = () => {
           </motion.div>
         </div>
       </section>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="sm:max-w-xl">
+          <DialogHeader>
+            <DialogTitle className="text-xl">Apply for {selectedPosition || "Position"}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleApplySubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="relative">
+                <Input id="name" name="name" required placeholder="Full Name" className="peer placeholder-transparent" />
+                <Label htmlFor="name" className="pointer-events-none absolute left-3 -top-3 bg-background px-1 text-xs text-muted-foreground transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary">
+                  Full Name *
+                </Label>
+              </div>
+              <div className="relative">
+                <Input id="phone" name="phone" type="tel" required placeholder="Phone" className="peer placeholder-transparent" />
+                <Label htmlFor="phone" className="pointer-events-none absolute left-3 -top-3 bg-background px-1 text-xs text-muted-foreground transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary">
+                  Phone *
+                </Label>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="relative">
+                <Input id="email" name="email" type="email" required placeholder="Email" className="peer placeholder-transparent" />
+                <Label htmlFor="email" className="pointer-events-none absolute left-3 -top-3 bg-background px-1 text-xs text-muted-foreground transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary">
+                  Email *
+                </Label>
+              </div>
+              <div className="relative">
+                <Input id="location" name="location" placeholder="Location" className="peer placeholder-transparent" />
+                <Label htmlFor="location" className="pointer-events-none absolute left-3 -top-3 bg-background px-1 text-xs text-muted-foreground transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary">
+                  Location
+                </Label>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="relative">
+                <Input id="experience" name="experience" placeholder="Experience (years)" className="peer placeholder-transparent" />
+                <Label htmlFor="experience" className="pointer-events-none absolute left-3 -top-3 bg-background px-1 text-xs text-muted-foreground transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary">
+                  Experience
+                </Label>
+              </div>
+              <div className="relative">
+                <Input id="resumeLink" name="resumeLink" placeholder="Resume/Portfolio Link" className="peer placeholder-transparent" />
+                <Label htmlFor="resumeLink" className="pointer-events-none absolute left-3 -top-3 bg-background px-1 text-xs text-muted-foreground transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary">
+                  Resume/Portfolio Link
+                </Label>
+              </div>
+            </div>
+            <div className="relative">
+              <Textarea id="message" name="message" rows={4} placeholder="Your message" className="peer placeholder-transparent" />
+              <Label htmlFor="message" className="pointer-events-none absolute left-3 -top-3 bg-background px-1 text-xs text-muted-foreground transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary">
+                Message
+              </Label>
+            </div>
+            <Button type="submit" variant="gold" className="w-full" disabled={isSubmitting}>
+              Send via WhatsApp
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "0.0.0.0",
     port: 5000,
-    strictPort: true,
+    strictPort: false,
     allowedHosts: [
       "bd92267c-41ee-4ed4-a31a-ba17e5861522-00-9nh4yppvnxj3.spock.replit.dev"
     ]

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,47 +24,82 @@ const Navbar = () => {
   }, [location]);
 
   const services = [
-    { name: "Turnkey House Construction", path: "/services#turnkey" },
+    { name: "Residential House Construction", path: "/services#turnkey" },
     { name: "Commercial Construction", path: "/services#commercial" },
     { name: "Architectural Designing", path: "/services#architectural" },
     { name: "Structural Designing", path: "/services#structural" },
     { name: "Building Plan Approval", path: "/services#approval" },
     { name: "Construction Packages", path: "/packages" },
-    { name: "Cost Calculator", path: "/construction-cost" },
   ];
+
+  const isPathActive = (path: string) => location.pathname === path;
+  const isServicesActive = location.pathname.startsWith("/services") || location.pathname.startsWith("/packages");
+
+  const navbarActive = isScrolled || isOpen;
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled ? "glass-effect shadow-large" : "bg-transparent"
+      className={`fixed top-0 w-full z-50 transition-all duration-200 ${
+        navbarActive
+          ? "bg-background/80 backdrop-blur-md border-b border-white/10 shadow-large"
+          : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative">
-              <div className="absolute inset-0 gold-gradient rounded-xl blur-md opacity-40 group-hover:opacity-60 transition-opacity"></div>
-              <div className="relative w-14 h-14 gold-gradient rounded-xl flex items-center justify-center shadow-gold transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
-                <span className="text-2xl font-bold text-primary-foreground font-heading">A</span>
+          {/* Back + Logo */}
+          <div className="flex items-center gap-3">
+            <Button
+              variant="outline-gold"
+              size="icon"
+              aria-label="Back"
+              className="inline-flex"
+              onClick={() => navigate(-1)}
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </Button>
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="relative">
+                <div className="absolute inset-0 gold-gradient-subtle rounded-xl blur-xl opacity-20 z-0"></div>
+                <div className="relative w-14 h-14 rounded-xl flex items-center justify-center bg-foreground border border-white/20 shadow-soft z-10">
+                  <img
+                    src="/assets/logo.png"
+                    alt="Adithya Constructions Logo"
+                    className="w-12 h-12 object-contain"
+                    loading="eager"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="hidden md:block">
-              <h1 className="text-xl font-heading font-bold text-foreground leading-tight">
-                Adithya Constructions
-              </h1>
-              <p className="text-xs text-muted-foreground leading-tight">We build your dreams</p>
-            </div>
-          </Link>
+              <div className="hidden md:block">
+                <h1 className="text-xl font-heading font-bold text-foreground leading-tight">
+                  Adithya Constructions
+                </h1>
+                <p className="text-xs text-muted-foreground leading-tight">We build your dreams</p>
+              </div>
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            <Link to="/" className="text-sm font-medium hover:text-primary transition-colors">
+          <div className="hidden lg:flex items-center gap-5">
+            <Link
+              to="/"
+              className={`relative text-sm font-medium transition-colors ${
+                isPathActive("/") ? "text-foreground" : "text-muted-foreground hover:text-primary"
+              }`}
+            >
               Home
+              {isPathActive("/") && (
+                <span className="absolute left-0 -bottom-2 w-full h-0.5 bg-primary" />
+              )}
             </Link>
+            <span className="text-primary/50">•</span>
             <Link to="/about" className="text-sm font-medium hover:text-primary transition-colors">
               About Us
             </Link>
+            {isPathActive("/about") && (
+              <span className="w-12 h-0.5 bg-primary" />
+            )}
+            <span className="text-primary/50">•</span>
             
             {/* Services Dropdown */}
             <div
@@ -71,9 +107,16 @@ const Navbar = () => {
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
             >
-              <button className="flex items-center gap-1 text-sm font-medium hover:text-primary transition-colors">
+              <button
+                className={`relative flex items-center gap-1 text-sm font-medium transition-colors ${
+                  isServicesActive ? "text-foreground" : "text-muted-foreground hover:text-primary"
+                }`}
+              >
                 Services
                 <ChevronDown className={`w-4 h-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                {isServicesActive && (
+                  <span className="absolute left-0 -bottom-2 w-full h-0.5 bg-primary" />
+                )}
               </button>
               
               <AnimatePresence>
@@ -98,26 +141,67 @@ const Navbar = () => {
                 )}
               </AnimatePresence>
             </div>
-
-            <Link to="/projects" className="text-sm font-medium hover:text-primary transition-colors">
-              Projects
-            </Link>
-            <Link to="/emi-calculator" className="text-sm font-medium hover:text-primary transition-colors">
-              EMI Calculator
-            </Link>
-            <Link to="/quality-checklist" className="text-sm font-medium hover:text-primary transition-colors">
-              Quality Checklist
-            </Link>
-            <Link to="/careers" className="text-sm font-medium hover:text-primary transition-colors">
-              Careers
-            </Link>
-            <Link to="/contact" className="text-sm font-medium hover:text-primary transition-colors">
-              Contact
-            </Link>
+            <span className="text-primary/50">•</span>
             
-            <Button variant="gold" size="lg" asChild>
-              <Link to="/appointment">Book Appointment</Link>
-            </Button>
+            <Link
+              to="/projects"
+              className={`relative text-sm font-medium transition-colors ${
+                isPathActive("/projects") ? "text-foreground" : "text-muted-foreground hover:text-primary"
+              }`}
+            >
+              Projects
+              {isPathActive("/projects") && (
+                <span className="absolute left-0 -bottom-2 w-full h-0.5 bg-primary" />
+              )}
+            </Link>
+            <span className="text-primary/50">•</span>
+            <Link
+              to="/construction-cost"
+              className={`relative text-sm font-medium transition-colors ${
+                isPathActive("/construction-cost") ? "text-foreground" : "text-muted-foreground hover:text-primary"
+              }`}
+            >
+              Cost Calculator
+              {isPathActive("/construction-cost") && (
+                <span className="absolute left-0 -bottom-2 w-full h-0.5 bg-primary" />
+              )}
+            </Link>
+            <span className="text-primary/50">•</span>
+            <Link
+              to="/quality-checklist"
+              className={`relative text-sm font-medium transition-colors ${
+                isPathActive("/quality-checklist") ? "text-foreground" : "text-muted-foreground hover:text-primary"
+              }`}
+            >
+              Quality Checklist
+              {isPathActive("/quality-checklist") && (
+                <span className="absolute left-0 -bottom-2 w-full h-0.5 bg-primary" />
+              )}
+            </Link>
+            <span className="text-primary/50">•</span>
+            <Link
+              to="/careers"
+              className={`relative text-sm font-medium transition-colors ${
+                isPathActive("/careers") ? "text-foreground" : "text-muted-foreground hover:text-primary"
+              }`}
+            >
+              Careers
+              {isPathActive("/careers") && (
+                <span className="absolute left-0 -bottom-2 w-full h-0.5 bg-primary" />
+              )}
+            </Link>
+            <span className="text-primary/50">•</span>
+            <Link
+              to="/contact"
+              className={`relative text-sm font-medium transition-colors ${
+                isPathActive("/contact") ? "text-foreground" : "text-muted-foreground hover:text-primary"
+              }`}
+            >
+              Contact
+              {isPathActive("/contact") && (
+                <span className="absolute left-0 -bottom-2 w-full h-0.5 bg-primary" />
+              )}
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -178,8 +262,8 @@ const Navbar = () => {
                 <Link to="/projects" className="block px-4 py-2 text-sm font-medium hover:bg-muted rounded-lg transition-colors">
                   Projects
                 </Link>
-                <Link to="/emi-calculator" className="block px-4 py-2 text-sm font-medium hover:bg-muted rounded-lg transition-colors">
-                  EMI Calculator
+                <Link to="/construction-cost" className="block px-4 py-2 text-sm font-medium hover:bg-muted rounded-lg transition-colors">
+                  Cost Calculator
                 </Link>
                 <Link to="/quality-checklist" className="block px-4 py-2 text-sm font-medium hover:bg-muted rounded-lg transition-colors">
                   Quality Checklist
@@ -190,11 +274,7 @@ const Navbar = () => {
                 <Link to="/contact" className="block px-4 py-2 text-sm font-medium hover:bg-muted rounded-lg transition-colors">
                   Contact
                 </Link>
-                <div className="px-4 pt-2">
-                  <Button variant="gold" size="lg" className="w-full" asChild>
-                    <Link to="/appointment">Book Appointment</Link>
-                  </Button>
-                </div>
+                
               </div>
             </motion.div>
           )}

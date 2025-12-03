@@ -1,14 +1,17 @@
 import Hero from "@/components/home/Hero";
-import CraneLogo from "@/components/CraneLogo";
+import Testimonials from "@/components/lead/Testimonials";
+import TrustBadges from "@/components/lead/TrustBadges";
+import ClientLogosMarquee from "@/components/lead/ClientLogosMarquee";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Building2, Home, Pencil, CheckCircle, FileCheck, ArrowRight } from "lucide-react";
+import { Building2, Home, Pencil, CheckCircle, FileCheck, ArrowRight, Phone, MessageCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const services = [
   {
     icon: Home,
-    title: "Turnkey House Construction",
+    title: "Residential House Construction",
     description: "Complete end-to-end residential construction with premium quality materials and expert craftsmanship.",
   },
   {
@@ -33,43 +36,25 @@ const services = [
   },
 ];
 
+const StatCounter = ({ end, duration = 1500 }: { end: number; duration?: number }) => {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    let start = 0;
+    const stepTime = Math.max(16, Math.floor(duration / end));
+    const interval = setInterval(() => {
+      start += 1;
+      setValue(start);
+      if (start >= end) clearInterval(interval);
+    }, stepTime);
+    return () => clearInterval(interval);
+  }, [end, duration]);
+  return <span className="tabular-nums">{value}</span>;
+};
+
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Hero />
-
-      {/* Crane Logo Section */}
-      <section className="py-12 px-4 lg:px-8 bg-gradient-to-b from-primary/5 to-background">
-        <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="w-48 h-48 md:w-64 md:h-64"
-            >
-              <CraneLogo />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-center md:text-left max-w-md"
-            >
-              <h3 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-3">
-                Building <span className="text-primary">Excellence</span>
-              </h3>
-              <p className="text-muted-foreground">
-                With precision engineering and unwavering commitment to quality, 
-                we lift your dreams from blueprint to reality.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* Services Section */}
       <section className="py-20 px-4 lg:px-8">
         <div className="container mx-auto">
@@ -98,9 +83,9 @@ const Index = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="glass-card p-8 rounded-2xl shadow-soft hover:shadow-large transition-all duration-300 hover-lift group relative overflow-hidden"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 gold-gradient-subtle rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 gold-gradient-subtle rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-150"></div>
                 <div className="relative w-16 h-16 gold-gradient rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-gold">
-                  <service.icon className="w-8 h-8 text-primary-foreground" />
+                  <service.icon className="w-8 h-8 text-foreground" />
                 </div>
                 <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
                   {service.title}
@@ -126,6 +111,48 @@ const Index = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Trust Badges Section */}
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+        <TrustBadges />
+      </motion.div>
+
+      {/* Stats Section */}
+      <section className="py-16 px-4 lg:px-8 bg-background">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
+          >
+            <div className="glass-card p-8 rounded-2xl text-center shadow-soft hover:shadow-medium transition-all duration-300">
+              <p className="text-5xl font-heading font-bold bg-gradient-to-br from-primary to-primary-light bg-clip-text text-transparent">
+                <StatCounter end={8} duration={1200} />+
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">Years of Experience</p>
+            </div>
+            <div className="glass-card p-8 rounded-2xl text-center shadow-soft hover:shadow-medium transition-all duration-300">
+              <p className="text-5xl font-heading font-bold bg-gradient-to-br from-primary to-primary-light bg-clip-text text-transparent">
+                <StatCounter end={150} duration={1500} />+
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">Completed Projects</p>
+            </div>
+            <div className="glass-card p-8 rounded-2xl text-center shadow-soft hover:shadow-medium transition-all duration-300">
+              <p className="text-5xl font-heading font-bold bg-gradient-to-br from-primary to-primary-light bg-clip-text text-transparent">
+                <StatCounter end={300} duration={1600} />+
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">Happy Clients</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Clients Logos Marquee */}
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+        <ClientLogosMarquee />
+      </motion.div>
 
       {/* Why Choose Us Section */}
       <section className="py-20 px-4 lg:px-8 bg-background-secondary">
@@ -156,7 +183,7 @@ const Index = () => {
               <div className="relative inline-block mb-6">
                 <div className="absolute inset-0 gold-gradient rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity animate-glow"></div>
                 <div className="relative w-24 h-24 gold-gradient rounded-full flex items-center justify-center shadow-gold hover:shadow-gold-hover transition-all duration-300 hover:scale-110">
-                  <span className="text-4xl font-bold text-primary-foreground">✓</span>
+                  <span className="text-4xl font-bold text-foreground">✓</span>
                 </div>
               </div>
               <h3 className="text-2xl font-heading font-semibold mb-3">70-Point Quality Checklist</h3>
@@ -176,14 +203,14 @@ const Index = () => {
               className="text-center"
             >
               <div className="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6 shadow-gold">
-                <span className="text-3xl font-bold text-primary-foreground">💰</span>
+                <span className="text-3xl font-bold text-foreground">💰</span>
               </div>
               <h3 className="text-2xl font-heading font-semibold mb-3">Transparent Pricing</h3>
               <p className="text-muted-foreground">
-                Calculate your construction EMI with our free online calculator
+                Estimate your construction cost with our free online calculator
               </p>
               <Button variant="link" asChild className="mt-4">
-                <Link to="/emi-calculator">Calculate EMI →</Link>
+                <Link to="/construction-cost">Open Cost Calculator →</Link>
               </Button>
             </motion.div>
 
@@ -195,18 +222,23 @@ const Index = () => {
               className="text-center"
             >
               <div className="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6 shadow-gold">
-                <span className="text-3xl font-bold text-primary-foreground">⭐</span>
+                <span className="text-3xl font-bold text-foreground">⭐</span>
               </div>
-              <h3 className="text-2xl font-heading font-semibold mb-3">15+ Years Experience</h3>
+              <h3 className="text-2xl font-heading font-semibold mb-3">8+ Years Experience</h3>
               <p className="text-muted-foreground">
-                500+ successfully completed projects across Coimbatore and Salem
+                150+ successfully completed projects across Coimbatore and Salem
               </p>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Testimonials Section */}
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+        <Testimonials />
+      </motion.div>
+
+      {/* Enhanced CTA Section */}
       <section className="py-20 px-4 lg:px-8">
         <div className="container mx-auto">
           <motion.div
@@ -214,21 +246,55 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-card rounded-2xl p-12 md:p-16 text-center shadow-medium"
+            className="bg-gradient-to-br from-primary/10 via-primary/5 to-background rounded-2xl p-12 md:p-16 text-center shadow-medium border border-primary/20 relative overflow-hidden"
           >
-            <h2 className="text-3xl md:text-5xl font-heading font-bold text-foreground mb-6">
-              Ready to Build Your Dream?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Schedule a free consultation with our expert team and turn your vision into reality
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="gold" size="xl" asChild>
-                <Link to="/appointment">Book Free Consultation</Link>
-              </Button>
-              <Button variant="outline-gold" size="xl" asChild>
-                <Link to="/contact">Contact Us</Link>
-              </Button>
+            <div className="absolute top-0 right-0 w-64 h-64 gold-gradient-subtle rounded-full blur-3xl opacity-30"></div>
+            <div className="relative">
+              <motion.div
+                initial={{ scale: 0.9 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="inline-block px-4 py-2 bg-primary/20 rounded-full mb-6"
+              >
+                <p className="text-sm font-semibold text-primary">Limited Time Offer</p>
+              </motion.div>
+              <h2 className="text-3xl md:text-5xl font-heading font-bold text-foreground mb-4">
+                Ready to Build Your Dream?
+              </h2>
+              <p className="text-lg text-muted-foreground mb-2 max-w-2xl mx-auto">
+                Schedule a <span className="text-primary font-semibold">FREE consultation</span> with our expert team
+              </p>
+              <p className="text-sm text-muted-foreground mb-8">
+                Get instant quote • No obligation • Expert advice
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+                <Button variant="gold" size="xl" asChild className="group w-full sm:w-auto">
+                  <Link to="/appointment">
+                    <Phone className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    Book Free Consultation
+                  </Link>
+                </Button>
+                <a href="tel:6374507535" className="w-full sm:w-auto">
+                  <Button variant="gold" size="xl" className="group w-full sm:w-auto">
+                    <Phone className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    Call: 63745 07535
+                  </Button>
+                </a>
+                <a
+                  href="https://wa.me/916374507535?text=Hi! I'd like to know more about your construction services."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button variant="outline" size="xl" className="group w-full sm:w-auto bg-[#25D366] text-white border-[#25D366] hover:bg-[#20BA5A]">
+                    <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    WhatsApp
+                  </Button>
+                </a>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                ⚡ Response within 2 hours • 📞 Available Mon-Sat 9 AM - 6 PM
+              </p>
             </div>
           </motion.div>
         </div>

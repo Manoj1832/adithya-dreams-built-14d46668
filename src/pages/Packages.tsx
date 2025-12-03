@@ -25,7 +25,7 @@ const Packages = () => {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/construction-cost">
-                <Button className="gold-gradient text-white gap-2" data-testid="button-hero-calculator">
+                <Button className="gold-gradient text-foreground gap-2" data-testid="button-hero-calculator">
                   <Calculator className="w-4 h-4" />
                   Calculate Your Cost
                 </Button>
@@ -61,7 +61,7 @@ const Packages = () => {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/appointment">
-                <Button size="lg" className="gold-gradient text-white" data-testid="button-book-appointment">
+                <Button size="lg" className="gold-gradient text-foreground" data-testid="button-book-appointment">
                   Book Free Consultation
                 </Button>
               </Link>

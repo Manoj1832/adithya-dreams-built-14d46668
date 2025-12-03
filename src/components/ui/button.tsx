@@ -11,12 +11,12 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground shadow-soft hover:shadow-medium hover:bg-primary-dark hover:scale-105 active:scale-95",
         destructive: "bg-destructive text-destructive-foreground shadow-soft hover:shadow-medium hover:bg-destructive/90",
-        outline: "border-2 border-input bg-background hover:bg-muted hover:border-border shadow-soft hover:shadow-medium",
+        outline: "border-2 border-input bg-background text-foreground hover:bg-muted hover:border-border shadow-soft hover:shadow-medium",
         secondary: "bg-secondary text-secondary-foreground shadow-soft hover:shadow-medium hover:bg-secondary-light",
         ghost: "hover:bg-muted hover:text-foreground",
         link: "text-primary underline-offset-4 hover:underline hover:text-primary-dark",
-        gold: "gold-gradient text-primary-foreground shadow-gold hover:shadow-gold-hover hover:scale-105 active:scale-95 font-bold tracking-wide",
-        "outline-gold": "border-2 border-primary text-primary bg-transparent hover:gold-gradient hover:text-primary-foreground hover:border-transparent shadow-soft hover:shadow-gold hover:scale-105 active:scale-95 font-semibold",
+        gold: "gold-gradient text-foreground shadow-gold hover:shadow-gold-hover hover:scale-105 active:scale-95 font-bold tracking-wide",
+        "outline-gold": "border-2 border-primary text-foreground bg-transparent hover:gold-gradient hover:text-foreground hover:border-transparent shadow-soft hover:shadow-gold hover:scale-105 active:scale-95 font-semibold",
       },
       size: {
         default: "h-11 px-5 py-2.5 text-sm",

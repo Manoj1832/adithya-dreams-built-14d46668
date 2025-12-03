@@ -60,9 +60,9 @@ const PricingPackages = () => {
               )}
               
               <CardHeader className={`text-center pb-4 ${
-                tier.id === 'basic' ? 'bg-gradient-to-br from-rose-500 to-rose-600' :
-                tier.id === 'standard' ? 'bg-gradient-to-br from-rose-500 to-rose-600' :
-                'bg-gradient-to-br from-rose-500 to-rose-600'
+                tier.id === 'basic' ? 'bg-gradient-to-br from-rose-150 to-rose-600' :
+                tier.id === 'standard' ? 'bg-gradient-to-br from-rose-150 to-rose-600' :
+                'bg-gradient-to-br from-rose-150 to-rose-600'
               } text-white`}>
                 <CardTitle className="text-xl font-bold">{tier.name}</CardTitle>
                 <p className="text-white/80 text-sm">price may vary depending on no.of floors</p>
@@ -84,7 +84,7 @@ const PricingPackages = () => {
                 <div className="space-y-2 mb-6">
                   {tier.features.map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
+                      <Check className="w-4 h-4 text-green-150 shrink-0 mt-0.5" />
                       <span className="text-sm">{feature}</span>
                     </div>
                   ))}
@@ -122,7 +122,7 @@ const PricingPackages = () => {
                 <div className="mt-6">
                   <Link to="/construction-cost">
                     <Button 
-                      className="w-full gold-gradient text-white"
+                      className="w-full gold-gradient text-foreground"
                       data-testid={`button-calculate-${tier.id}`}
                     >
                       Calculate Cost
@@ -139,7 +139,7 @@ const PricingPackages = () => {
             Looking for a house construction company in Coimbatore & Salem? You are at the right spot.
           </p>
           <Link to="/construction-cost">
-            <Button size="lg" className="gold-gradient text-white" data-testid="button-cost-calculator">
+            <Button size="lg" className="gold-gradient text-foreground" data-testid="button-cost-calculator">
               Try Our Construction Cost Calculator
             </Button>
           </Link>

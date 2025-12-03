@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -11,39 +12,57 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar, Clock, User, Phone, Mail, MapPin, MessageSquare } from "lucide-react";
+import { Calendar, Clock, User, Phone, Mail, MapPin, MessageSquare, MessageCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { sendAppointmentEmail, type AppointmentFormData } from "@/lib/emailjs";
+import { sendAppointmentViaWhatsApp } from "@/lib/whatsapp";
 
 const Appointment = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sendMethod, setSendMethod] = useState<"email" | "whatsapp">("email");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get("name"),
-      phone: formData.get("phone"),
-      email: formData.get("email"),
-      location: formData.get("location"),
-      service: formData.get("service"),
-      date: formData.get("date"),
-      time: formData.get("time"),
-      description: formData.get("description"),
+    const data: AppointmentFormData = {
+      name: formData.get("name") as string,
+      phone: formData.get("phone") as string,
+      email: formData.get("email") as string,
+      location: formData.get("location") as string,
+      service: formData.get("service") as string,
+      date: formData.get("date") as string,
+      time: formData.get("time") as string,
+      description: formData.get("description") as string,
     };
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    toast({
-      title: "Appointment Request Sent!",
-      description: "We'll contact you shortly to confirm your appointment.",
-    });
-
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
+    try {
+      if (sendMethod === "email") {
+        await sendAppointmentEmail(data);
+        toast({
+          title: "Appointment Request Sent!",
+          description: "We'll contact you shortly to confirm your appointment.",
+        });
+        (e.target as HTMLFormElement).reset();
+      } else {
+        sendAppointmentViaWhatsApp(data);
+        toast({
+          title: "Opening WhatsApp...",
+          description: "You'll be redirected to WhatsApp to send your appointment request.",
+        });
+        // Don't reset form for WhatsApp as user might want to edit
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to send appointment request. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -148,6 +167,37 @@ const Appointment = () => {
               transition={{ duration: 0.6 }}
             >
               <form onSubmit={handleSubmit} className="bg-card p-8 rounded-2xl shadow-medium space-y-6">
+                {/* Send Method Selection */}
+                <div className="space-y-3 p-4 bg-background-secondary rounded-lg border border-border">
+                  <Label className="text-sm font-semibold">Choose how to send your request:</Label>
+                  <RadioGroup
+                    value={sendMethod}
+                    onValueChange={(value) => setSendMethod(value as "email" | "whatsapp")}
+                    className="flex gap-6"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="email" id="email-method" />
+                      <Label
+                        htmlFor="email-method"
+                        className="flex items-center gap-2 cursor-pointer font-normal"
+                      >
+                        <Mail className="w-4 h-4" />
+                        Email
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="whatsapp" id="whatsapp-method" />
+                      <Label
+                        htmlFor="whatsapp-method"
+                        className="flex items-center gap-2 cursor-pointer font-normal"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        WhatsApp
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name *</Label>
                   <div className="relative">
@@ -215,10 +265,11 @@ const Appointment = () => {
                       <SelectValue placeholder="Select a service" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="turnkey">Turnkey House Construction</SelectItem>
+                      <SelectItem value="turnkey">Residential House Construction</SelectItem>
                       <SelectItem value="commercial">Commercial Construction</SelectItem>
                       <SelectItem value="architectural">Architectural Designing</SelectItem>
                       <SelectItem value="structural">Structural Designing</SelectItem>
+                      <SelectItem value="structural">Interior Works</SelectItem>
                       <SelectItem value="approval">Building Plan Approval</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
@@ -276,7 +327,17 @@ const Appointment = () => {
                   className="w-full"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting..." : "Submit Appointment Request"}
+                  {sendMethod === "email" ? (
+                    <>
+                      <Mail className="w-5 h-5" />
+                      {isSubmitting ? "Submitting..." : "Submit via Email"}
+                    </>
+                  ) : (
+                    <>
+                      <MessageCircle className="w-5 h-5" />
+                      {isSubmitting ? "Opening..." : "Submit via WhatsApp"}
+                    </>
+                  )}
                 </Button>
               </form>
             </motion.div>

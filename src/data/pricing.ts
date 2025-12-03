@@ -72,7 +72,7 @@ export const packageCategories: PackageCategory[] = [
     name: "Cost of construction per sq.ft",
     standard: "Rs. 2,100.00",
     premium: "Rs. 2,300.00",
-    luxury: "Rs. 2,500.00"
+    luxury: "Rs. 2,150.00"
   },
   {
     name: "Types of construction",
@@ -197,7 +197,7 @@ export const addOns: AddOn[] = [
     id: "solarPower",
     name: "Solar Power",
     description: "A 3BHK home will require 2KW solar power to run fans, lights and television during the daytime",
-    pricePerUnit: 75000,
+    pricePerUnit: 71500,
     unit: "KW",
     min: 0,
     max: 10,
