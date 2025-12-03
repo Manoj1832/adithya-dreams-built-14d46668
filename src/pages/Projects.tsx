@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
 
 const categories = ["All", "Residential", "Commercial", "PEB", "Interior", "Renovation"];
 
@@ -80,6 +81,9 @@ const Projects = () => {
     }
   }, [selectedCategory, navigate, location.search]);
 
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [viewerIndex, setViewerIndex] = useState<number | null>(null);
+
   const filteredProjects =
     selectedCategory === "All"
       ? projects
@@ -97,6 +101,10 @@ const Projects = () => {
         exit={{ opacity: 0, scale: 0.96 }}
         transition={{ duration: 0.4, delay: index * 0.05 }}
         className="group cursor-pointer"
+        onClick={() => {
+          setViewerIndex(index);
+          setViewerOpen(true);
+        }}
       >
         <div className="relative bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-lg transition-shadow">
           <div className="aspect-video overflow-hidden relative">
@@ -191,6 +199,57 @@ const Projects = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Image Viewer */}
+      <Dialog open={viewerOpen} onOpenChange={(open) => setViewerOpen(open)}>
+        <DialogContent className="max-w-[92vw] md:max-w-[80vw] bg-transparent p-0 border-none shadow-none">
+          <DialogClose className="absolute right-3 top-3 rounded-full bg-black/70 text-white border border-white/30 p-2 shadow-medium hover:bg-black focus:outline-none focus:ring-2 focus:ring-white/70">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
+          {viewerIndex !== null && (
+            <div className="relative w-full h-[80vh] flex items-center justify-center">
+              <img
+                src={filteredProjects[viewerIndex].image}
+                alt={filteredProjects[viewerIndex].title}
+                className="max-h-full max-w-full object-contain rounded-xl shadow-elevated"
+                loading="eager"
+              />
+              {/* Prev/Next Controls */}
+              <button
+                aria-label="Previous"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setViewerIndex((prev) => {
+                    if (prev === null) return 0;
+                    return (prev - 1 + filteredProjects.length) % filteredProjects.length;
+                  });
+                }}
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-background/70 backdrop-blur-md border border-border rounded-full px-3 py-2 text-sm shadow-medium hover:bg-background"
+              >
+                Prev
+              </button>
+              <button
+                aria-label="Next"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setViewerIndex((prev) => {
+                    if (prev === null) return 0;
+                    return (prev + 1) % filteredProjects.length;
+                  });
+                }}
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-background/70 backdrop-blur-md border border-border rounded-full px-3 py-2 text-sm shadow-medium hover:bg-background"
+              >
+                Next
+              </button>
+              {/* Caption */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 glass-card rounded-full px-4 py-2 text-sm shadow-gold">
+                {filteredProjects[viewerIndex].title}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Stats Section */}
       <section className="py-20 px-4 lg:px-8 bg-background-secondary">

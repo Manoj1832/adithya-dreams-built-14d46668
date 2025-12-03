@@ -22,7 +22,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative w-full pt-24 pb-24 md:pt-[120px] md:pb-[140px] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full pt-24 pb-20 md:pt-[120px] md:pb-[140px] flex items-center justify-center overflow-hidden">
 
       {/* --- Premium Background Layers --- */}
       <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-white"></div>
@@ -73,7 +73,7 @@ const Hero = () => {
             >
               <Button
                 asChild
-                className="h-11 md:h-12 rounded-full px-6 md:px-7 text-sm md:text-base bg-neutral-900 text-white hover:bg-neutral-800 shadow-[0_8px_24px_rgba(0,0,0,0.15)] hover:translate-y-[-2px] transition-all w-auto"
+                className="h-10 md:h-12 rounded-full px-4 md:px-7 text-xs sm:text-sm md:text-base bg-neutral-900 text-white hover:bg-neutral-800 shadow-[0_8px_24px_rgba(0,0,0,0.15)] hover:translate-y-[-2px] transition-all w-auto"
               >
                 <Link to="/appointment">Book Free Consultation</Link>
               </Button>
@@ -81,7 +81,7 @@ const Hero = () => {
               <a href="tel:6374507535">
                 <Button
                   variant="outline"
-                  className="h-11 md:h-12 rounded-full px-6 md:px-7 text-sm md:text-base border border-neutral-300 text-neutral-900 bg-white hover:bg-neutral-100 shadow-md hover:translate-y-[-2px] transition-all flex gap-2 w-auto"
+                  className="h-10 md:h-12 rounded-full px-4 md:px-7 text-xs sm:text-sm md:text-base border border-neutral-300 text-neutral-900 bg-white hover:bg-neutral-100 shadow-md hover:translate-y-[-2px] transition-all flex gap-2 w-auto"
                 >
                   <Phone className="w-[20px] h-[20px]" />
                   Call: 63745 07535
