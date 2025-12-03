@@ -82,6 +82,7 @@ const QuickInquiryButton = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
+      
         <div className="relative">
           <span className="absolute inset-0 rounded-full bg-primary opacity-40 animate-ping"></span>
           <div className="relative w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-medium hover:shadow-large transition-all duration-300">
