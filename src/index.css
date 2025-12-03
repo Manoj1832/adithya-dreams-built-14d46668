@@ -1,75 +1,249 @@
 /* -----------------------------------------------------------
-   GLOBAL RESPONSIVE ENHANCEMENTS (MOBILE FIRST)
+   PREMIUM CONSTRUCTION WEBSITE DESIGN SYSTEM
+   TYPOGRAPHY • SHADOWS • GLASSMORPHISM • GRADIENTS • UTILITIES
 ----------------------------------------------------------- */
 
-/* Prevent layout-wide flex override issues */
-@media (max-width: 768px) {
-  .flex:not(.no-responsive) {
-    flex-direction: column !important;
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* -----------------------------------------------------------
+   BASE VARIABLES
+----------------------------------------------------------- */
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --background-secondary: 0 0% 96%;
+    --background-accent: 0 0% 94%;
+    --foreground: 0 0% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 12%;
+    --card-elevated: 0 0% 98%;
+
+    --primary: 0 0% 35%;
+    --primary-light: 0 0% 50%;
+    --primary-dark: 0 0% 25%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 0 0% 50%;
+
+    --secondary: 0 0% 40%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 0 0% 50%;
+
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 0 0% 92%;
+    --accent-foreground: 0 0% 12%;
+    --accent-light: 0 0% 96%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 85%;
+    --input: 0 0% 88%;
+    --ring: 0 0% 30%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 12%;
+
+    --radius: 1rem;
+
+    --gradient-gold: linear-gradient(135deg, hsl(0 0% 96%) 0%, hsl(0 0% 92%) 100%);
+    --gradient-gold-subtle: linear-gradient(135deg, hsl(0 0% 96% / 0.6) 0%, hsl(0 0% 92% / 0.4) 100%);
+    --gradient-radial: radial-gradient(circle at center, hsl(0 0% 92% / 0.4) 0%, transparent 70%);
+
+    --gradient-mesh: 
+      radial-gradient(at 0% 0%, hsl(0 0% 97%) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsl(0 0% 96%) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsl(0 0% 95%) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsl(0 0% 97%) 0px, transparent 50%);
+
+    --shadow-soft: 0 1px 3px hsla(0, 0%, 20%, 0.04), 0 1px 2px hsla(0, 0%, 20%, 0.03);
+    --shadow-medium: 0 4px 6px hsla(0, 0%, 20%, 0.05), 0 2px 4px hsla(0, 0%, 20%, 0.04);
+    --shadow-large: 0 10px 24px hsla(0, 0%, 20%, 0.08), 0 4px 8px hsla(0, 0%, 20%, 0.05);
+    --shadow-gold: 0 8px 32px hsla(0, 0%, 20%, 0.15), 0 4px 16px hsla(0, 0%, 20%, 0.1);
+    --shadow-gold-hover: 0 12px 40px hsla(0, 0%, 20%, 0.2), 0 6px 20px hsla(0, 0%, 20%, 0.12);
+    --shadow-elevated: 0 20px 48px hsla(0, 0%, 20%, 0.12), 0 8px 16px hsla(0, 0%, 20%, 0.08);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
-/* Responsive container padding (fixes squeezed layout) */
-section, .container {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
 
-/* Safe area support for notched phones */
-body {
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-}
+/* -----------------------------------------------------------
+   GLOBAL ELEMENTS
+----------------------------------------------------------- */
+@layer base {
+  * {
+    @apply border-border;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-/* Adaptive typography (scales across all devices) */
-h1 {
-  font-size: clamp(1.8rem, 5vw, 3.2rem);
-}
-h2 {
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-}
-h3 {
-  font-size: clamp(1.4rem, 3.4vw, 2rem);
-}
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    background: var(--gradient-mesh);
+    background-attachment: fixed;
+    line-height: 1.5;
+    font-size: 16px;
+  }
 
-/* Body scales smoothly */
-body {
-  font-size: clamp(14px, 2.5vw, 16px);
-}
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
 
-/* Responsive spacing for large sections */
-.section-xl {
-  padding-top: clamp(2rem, 6vw, 6rem);
-  padding-bottom: clamp(2rem, 6vw, 6rem);
-}
-.section-lg {
-  padding-top: clamp(1.5rem, 4vw, 4rem);
-  padding-bottom: clamp(1.5rem, 4vw, 4rem);
-}
-
-/* Fix oversized hero images */
-.hero img {
-  max-height: 70vh;
-  object-fit: cover;
-}
-
-/* Responsive grid auto-adjust */
-.grid-auto {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
-
-/* Images in sliders should not be 100% width always */
-img:not(.full-width-img) {
-  width: 100%;
-  height: auto;
-}
-
-/* Buttons full width on mobile */
-@media(max-width:480px) {
-  .btn,
-  button {
+  img, iframe {
+    max-width: 100%;
     width: 100%;
+    height: auto;
+  }
+
+  section, .container {
+    width: min(100% - 20px, 1200px);
+    margin-inline: auto;
+  }
+}
+
+
+/* -----------------------------------------------------------
+   UTILITIES
+----------------------------------------------------------- */
+@layer utilities {
+
+  /* Gradients */
+  .gold-gradient {
+    background: var(--gradient-gold);
+  }
+  .gold-gradient-subtle {
+    background: var(--gradient-gold-subtle);
+  }
+  .premium-gradient-dark {
+    background: linear-gradient(135deg, #1c1c1c, #3a3a3a, #0f0f0f);
+  }
+  .premium-gradient-light {
+    background: linear-gradient(135deg, #f7f7f7, #eaeaea, #f3f3f3);
+  }
+
+  .heading-display {
+    font-family: 'Cinzel', serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  /* Glass */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+  }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+  }
+
+  /* Shadows */
+  .shadow-premium {
+    box-shadow: var(--shadow-large);
+  }
+  .shadow-gold-premium {
+    box-shadow: var(--shadow-gold);
+  }
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    transition: var(--transition-smooth);
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-large);
+  }
+  .hover-glow:hover {
+    box-shadow: var(--shadow-gold-hover);
+  }
+
+  /* Texture */
+  .bg-dots {
+    background-image: radial-gradient(circle, hsl(0 0% 50% / 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .bg-grid {
+    background-image: 
+      linear-gradient(to right, hsl(0 0% 70% / 0.35) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(0 0% 70% / 0.35) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .noise-bg {
+    background-image: url('/assets/textures/noise.png');
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  /* Animations */
+  .animate-fade-in { animation: fadeIn 0.8s ease forwards; }
+  .animate-slide-up { animation: slideUp 0.8s ease forwards; }
+  .animate-scale-in { animation: scaleIn 0.6s ease forwards; }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-glow { animation: glow 3s ease-in-out infinite; }
+  .animate-marquee { animation: marquee 28s linear infinite; }
+}
+
+
+/* -----------------------------------------------------------
+   KEYFRAMES
+----------------------------------------------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+  50% { box-shadow: 0 0 40px hsl(var(--primary) / 0.5); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .flex {
+    flex-direction: column;
   }
 }
