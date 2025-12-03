@@ -63,7 +63,7 @@ const QuickInquiryButton = () => {
       {/* Floating Quick Inquiry Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-28 left-3 z-50 group"
+        className="fixed bottom-[calc(env(safe-area-inset-bottom)+5rem)] left-3 z-50 group"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.5, type: "spring", bounce: 0.5 }}

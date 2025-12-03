@@ -46,14 +46,14 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Back + Logo */}
           <div className="flex items-center gap-3">
             <Button
               variant="outline-gold"
               size="icon"
               aria-label="Back"
-              className="inline-flex"
+              className="inline-flex h-8 w-8"
               onClick={() => navigate(-1)}
             >
               <ArrowLeft className="w-4 h-4" />
@@ -61,11 +61,11 @@ const Navbar = () => {
             <Link to="/" className="flex items-center gap-3 group">
               <div className="relative">
                 <div className="absolute inset-0 gold-gradient-subtle rounded-xl blur-xl opacity-20 z-0"></div>
-                <div className="relative w-14 h-14 rounded-xl flex items-center justify-center bg-foreground border border-white/20 shadow-soft z-10">
+              <div className="relative w-11 h-11 md:w-14 md:h-14 rounded-xl flex items-center justify-center bg-foreground border border-white/20 shadow-soft z-10">
                   <img
                     src="/assets/logo.png"
                     alt="Adithya Constructions Logo"
-                    className="w-12 h-12 object-contain"
+                    className="w-10 h-10 md:w-12 md:h-12 object-contain"
                     loading="eager"
                   />
                 </div>

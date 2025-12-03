@@ -22,7 +22,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative w-full pt-[120px] pb-[140px] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full pt-24 pb-24 md:pt-[120px] md:pb-[140px] flex items-center justify-center overflow-hidden">
 
       {/* --- Premium Background Layers --- */}
       <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-white"></div>
@@ -45,7 +45,7 @@ const Hero = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="text-[36px] md:text-[48px] lg:text-[60px] tracking-tight font-heading font-bold text-neutral-900 leading-[1.1]"
+              className="text-[32px] md:text-[48px] lg:text-[60px] tracking-tight font-heading font-bold text-neutral-900 leading-[1.25] md:leading-[1.1]"
             >
               Premium Construction
               <br />
@@ -58,7 +58,7 @@ const Hero = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-5 text-neutral-600 max-w-[450px] mx-auto lg:mx-0 text-[17px] leading-relaxed"
+              className="mt-4 md:mt-5 text-neutral-600 max-w-[450px] mx-auto lg:mx-0 text-[16px] md:text-[17px] leading-relaxed"
             >
               Residential, commercial, and structural projects built with 
               premium materials, strict engineering standards, and guaranteed timelines.
@@ -69,11 +69,11 @@ const Hero = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 md:gap-4 justify-center lg:justify-start"
             >
               <Button
                 asChild
-                className="h-12 rounded-full px-7 bg-neutral-900 text-white hover:bg-neutral-800 shadow-[0_8px_24px_rgba(0,0,0,0.15)] hover:translate-y-[-2px] transition-all"
+                className="h-11 md:h-12 rounded-full px-6 md:px-7 text-sm md:text-base bg-neutral-900 text-white hover:bg-neutral-800 shadow-[0_8px_24px_rgba(0,0,0,0.15)] hover:translate-y-[-2px] transition-all w-auto"
               >
                 <Link to="/appointment">Book Free Consultation</Link>
               </Button>
@@ -81,7 +81,7 @@ const Hero = () => {
               <a href="tel:6374507535">
                 <Button
                   variant="outline"
-                  className="h-12 rounded-full px-7 border border-neutral-300 text-neutral-900 bg-white hover:bg-neutral-100 shadow-md hover:translate-y-[-2px] transition-all flex gap-2"
+                  className="h-11 md:h-12 rounded-full px-6 md:px-7 text-sm md:text-base border border-neutral-300 text-neutral-900 bg-white hover:bg-neutral-100 shadow-md hover:translate-y-[-2px] transition-all flex gap-2 w-auto"
                 >
                   <Phone className="w-[20px] h-[20px]" />
                   Call: 63745 07535
@@ -165,7 +165,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
       >
         <div className="w-6 h-10 border-2 border-neutral-300 rounded-full flex justify-center">
           <motion.div

@@ -11,7 +11,7 @@ const WhatsAppButton = () => {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-28 right-2 z-50 group"
+      className="fixed bottom-[calc(env(safe-area-inset-bottom)+5rem)] right-2 z-50 group"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 2, duration: 1, type: "spring", bounce: 0.5 }}

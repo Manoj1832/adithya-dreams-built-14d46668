@@ -13,7 +13,7 @@ const StickyContactBar = () => {
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 2 }}
-      className="fixed bottom-0 left-0 right-0 z-40 lg:hidden"
+      className="fixed bottom-[env(safe-area-inset-bottom)] left-0 right-0 z-40 lg:hidden"
     >
       <div className="bg-card border-t border-border shadow-large">
         <div className="container mx-auto px-4 py-3">
