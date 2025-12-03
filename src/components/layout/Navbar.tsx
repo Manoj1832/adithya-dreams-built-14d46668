@@ -57,6 +57,7 @@ const Navbar = () => {
               className="inline-flex h-8 w-8"
               onClick={() => navigate(-1)}
             >
+              
               <ArrowLeft className="w-4 h-4" />
             </Button>
             <Link to="/" className="flex items-center gap-3 group">
