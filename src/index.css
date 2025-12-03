@@ -241,9 +241,3 @@
     font-size: 14px;
   }
 }
-
-@media (max-width: 768px) {
-  .flex {
-    flex-direction: column;
-  }
-}
