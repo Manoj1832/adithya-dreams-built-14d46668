@@ -135,13 +135,13 @@ const Index = () => {
             </div>
             <div className="glass-card p-8 rounded-2xl text-center shadow-soft hover:shadow-medium transition-all duration-300">
               <p className="text-5xl font-heading font-bold bg-gradient-to-br from-primary to-primary-light bg-clip-text text-transparent">
-                <StatCounter end={150} duration={1500} />+
+                <StatCounter end={30} duration={1500} />+
               </p>
               <p className="mt-2 text-sm text-muted-foreground">Completed Projects</p>
             </div>
             <div className="glass-card p-8 rounded-2xl text-center shadow-soft hover:shadow-medium transition-all duration-300">
               <p className="text-5xl font-heading font-bold bg-gradient-to-br from-primary to-primary-light bg-clip-text text-transparent">
-                <StatCounter end={300} duration={1600} />+
+                <StatCounter end={100} duration={1600} />+
               </p>
               <p className="mt-2 text-sm text-muted-foreground">Happy Clients</p>
             </div>
@@ -226,7 +226,7 @@ const Index = () => {
               </div>
               <h3 className="text-2xl font-heading font-semibold mb-3">8+ Years Experience</h3>
               <p className="text-muted-foreground">
-                150+ successfully completed projects across Coimbatore and Salem
+                30+successfully completed projects across Coimbatore and Salem
               </p>
             </motion.div>
           </div>

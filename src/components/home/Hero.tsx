@@ -97,7 +97,7 @@ const Hero = () => {
               className="text-neutral-500 text-sm mt-5 flex items-center gap-2 justify-center lg:justify-start"
             >
               <BadgeCheck className="w-4 h-4 text-primary" />
-              150+ Completed Projects • Since 2012
+              30+Completed Projects • Since 2012
             </motion.p>
           </div>
 

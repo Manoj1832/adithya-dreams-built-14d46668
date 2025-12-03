@@ -9,7 +9,7 @@ const badges = [
   },
   {
     icon: Building2,
-    title: "150+ Projects",
+    title: "30+Projects",
     description: "Successfully completed",
   },
   {
