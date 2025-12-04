@@ -72,7 +72,7 @@ export const packageCategories: PackageCategory[] = [
     name: "Cost of construction per sq.ft",
     standard: "Rs. 2,100.00",
     premium: "Rs. 2,300.00",
-    luxury: "Rs. 2,150.00"
+    luxury: "Rs. 2,500.00"
   },
   {
     name: "Types of construction",
