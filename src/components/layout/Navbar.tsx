@@ -144,7 +144,21 @@ const Navbar = () => {
               </AnimatePresence>
             </div>
             <span className="text-primary/50">•</span>
-            
+
+            <Link
+              to="/packages"
+              className={`relative text-sm font-medium transition-colors ${
+                isPathActive("/packages") ? "text-foreground" : "text-muted-foreground hover:text-primary"
+              }`}
+              onClick={() => window.scrollTo({ top: 0 })}
+            >
+              Packages
+              {isPathActive("/packages") && (
+                <span className="absolute left-0 -bottom-2 w-full h-0.5 bg-primary" />
+              )}
+            </Link>
+            <span className="text-primary/50">•</span>
+
             <Link
               to="/projects"
               className={`relative text-sm font-medium transition-colors ${
@@ -268,6 +282,9 @@ const Navbar = () => {
                 </div>
                 <Link to="/projects" className="block px-4 py-2 text-sm font-medium hover:bg-muted rounded-lg transition-colors">
                   Projects
+                </Link>
+                <Link to="/packages" className="block px-4 py-2 text-sm font-medium hover:bg-muted rounded-lg transition-colors">
+                  Packages
                 </Link>
                 <Link to="/construction-cost" className="block px-4 py-2 text-sm font-medium hover:bg-muted rounded-lg transition-colors">
                   Cost Calculator
