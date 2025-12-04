@@ -24,11 +24,11 @@ const Navbar = () => {
   }, [location]);
 
   const services = [
-    { name: "Residential House Construction", path: "/services#turnkey" },
-    { name: "Commercial Construction", path: "/services#commercial" },
-    { name: "Architectural Designing", path: "/services#architectural" },
-    { name: "Structural Designing", path: "/services#structural" },
-    { name: "Building Plan Approval", path: "/services#approval" },
+    { name: "Residential House Construction", path: "/services" },
+    { name: "Commercial Construction", path: "/services" },
+    { name: "Architectural Designing", path: "/services" },
+    { name: "Structural Designing", path: "/services" },
+    { name: "Building Plan Approval", path: "/services" },
     { name: "Construction Packages", path: "/packages" },
   ];
 
@@ -95,9 +95,9 @@ const Navbar = () => {
               )}
             </Link>
             <span className="text-primary/50">•</span>
-            <Link to="/about" className="text-sm font-medium hover:text-primary transition-colors">
-              About Us
-            </Link>
+                <Link to="/about" className="text-sm font-medium hover:text-primary transition-colors" onClick={() => window.scrollTo({ top: 0 })}>
+                  About Us
+                </Link>
             {isPathActive("/about") && (
               <span className="w-12 h-0.5 bg-primary" />
             )}
@@ -132,7 +132,7 @@ const Navbar = () => {
                   >
                     {services.map((service) => (
                       <Link
-                        key={service.path}
+                        key={service.name}
                         to={service.path}
                         className="block px-4 py-3 text-sm hover:bg-muted transition-colors"
                       >
@@ -150,6 +150,7 @@ const Navbar = () => {
               className={`relative text-sm font-medium transition-colors ${
                 isPathActive("/projects") ? "text-foreground" : "text-muted-foreground hover:text-primary"
               }`}
+              onClick={() => window.scrollTo({ top: 0 })}
             >
               Projects
               {isPathActive("/projects") && (
@@ -162,6 +163,7 @@ const Navbar = () => {
               className={`relative text-sm font-medium transition-colors ${
                 isPathActive("/construction-cost") ? "text-foreground" : "text-muted-foreground hover:text-primary"
               }`}
+              onClick={() => window.scrollTo({ top: 0 })}
             >
               Cost Calculator
               {isPathActive("/construction-cost") && (
@@ -174,6 +176,7 @@ const Navbar = () => {
               className={`relative text-sm font-medium transition-colors ${
                 isPathActive("/quality-checklist") ? "text-foreground" : "text-muted-foreground hover:text-primary"
               }`}
+              onClick={() => window.scrollTo({ top: 0 })}
             >
               Quality Checklist
               {isPathActive("/quality-checklist") && (
@@ -186,6 +189,7 @@ const Navbar = () => {
               className={`relative text-sm font-medium transition-colors ${
                 isPathActive("/careers") ? "text-foreground" : "text-muted-foreground hover:text-primary"
               }`}
+              onClick={() => window.scrollTo({ top: 0 })}
             >
               Careers
               {isPathActive("/careers") && (
@@ -198,6 +202,7 @@ const Navbar = () => {
               className={`relative text-sm font-medium transition-colors ${
                 isPathActive("/contact") ? "text-foreground" : "text-muted-foreground hover:text-primary"
               }`}
+              onClick={() => window.scrollTo({ top: 0 })}
             >
               Contact
               {isPathActive("/contact") && (
