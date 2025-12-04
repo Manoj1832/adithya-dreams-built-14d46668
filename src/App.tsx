@@ -6,10 +6,11 @@ import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-ro
 import { useEffect } from "react";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-import WhatsAppButton from "./components/layout/WhatsAppButton";
-import QuickInquiryButton from "./components/lead/QuickInquiryButton";
 import StickyContactBar from "./components/lead/StickyContactBar";
 import ExitIntentPopup from "./components/lead/ExitIntentPopup";
+import EntryWhatsAppModal from "./components/lead/EntryWhatsAppModal";
+import AdhiAI from "./pages/ai-bot";
+import { MessageCircle } from "lucide-react";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -33,6 +34,25 @@ const ScrollToTop = () => {
   return null;
 };
 
+
+const WhatsAppFloating = () => {
+  const whatsappNumber = "916374507535";
+  const whatsappMessage = "Hi! I'd like to know more about your construction services.";
+  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+  return (
+    <div className="fixed bottom-6 left-6 z-50">
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open WhatsApp chat"
+        className="w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_8px_24px_rgba(0,0,0,0.15)] hover:bg-[#20BA5A]"
+      >
+        <MessageCircle className="w-7 h-7" />
+      </a>
+    </div>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -66,8 +86,9 @@ const App = () => (
             </Routes>
           </main>
           <Footer />
-          <WhatsAppButton />
-          <QuickInquiryButton />
+          <EntryWhatsAppModal />
+          <WhatsAppFloating />
+          <AdhiAI />
           <StickyContactBar />
           <ExitIntentPopup />
         </div>

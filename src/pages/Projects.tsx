@@ -132,13 +132,7 @@ const Projects = () => {
               className={cn("w-full h-full object-cover transition-transform duration-300", "group-hover:scale-[1.03]", loaded ? "opacity-100" : "opacity-0")}
               onLoad={() => setLoaded(true)}
             />
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
-              <div className="absolute inset-x-0 bottom-0 bg-background/50 backdrop-blur-md p-4">
-                <p className="text-sm text-muted-foreground">
-                  📍 {project.location} | ⏱ {project.duration} | 💰 {project.costRange}
-                </p>
-              </div>
-            </div>
+            {/* removed project details overlay */}
             <Badge
               variant="outline"
               className="absolute top-3 left-3 rounded-full backdrop-blur-sm bg-background/50 border-[#D4AF37] text-foreground px-3 py-1 text-xs flex items-center gap-1"
@@ -155,9 +149,6 @@ const Projects = () => {
             <h3 className="text-xl font-heading font-semibold text-foreground">
               {project.title}
             </h3>
-            <p className="text-sm text-muted-foreground mt-1">
-              📍 {project.location} | ⏱ {project.duration} | 💰 {project.costRange}
-            </p>
           </div>
         </div>
       </motion.div>
@@ -295,71 +286,14 @@ const Projects = () => {
                     Next
                   </button>
                 </div>
-                <div className="md:col-span-4 w-full h-full bg-background/80 backdrop-blur-md border border-border rounded-xl p-6">
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-heading font-semibold text-foreground">{current.title}</h3>
-                    <p className="text-sm text-muted-foreground">Location: {current.location}</p>
-                    <p className="text-sm text-muted-foreground">Completion: {current.completion}</p>
-                    
-                    <div className="flex items-center gap-1">
-                      {Array.from({ length: current.feedback }).map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-yellow-500" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                {/* removed right panel project details */}
               </div>
             );
           })()}
         </DialogContent>
       </Dialog>
 
-      {/* Stats Section */}
-      <section className="py-20 px-4 lg:px-8 bg-background-secondary">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">30+</p>
-              <p className="text-muted-foreground">Total Projects</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-center"
-            >
-              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">20+</p>
-              <p className="text-muted-foreground">Residential</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-center"
-            >
-              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">5+</p>
-              <p className="text-muted-foreground">Commercial</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="text-center"
-            >
-              <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">5+</p>
-              <p className="text-muted-foreground">Others</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      {/* removed stats section */}
     </div>
   );
 };

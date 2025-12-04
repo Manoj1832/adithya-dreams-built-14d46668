@@ -151,10 +151,10 @@ const QualityChecklist = () => {
             className="bg-card p-8 rounded-2xl shadow-soft text-center"
           >
             <h2 className="text-2xl font-heading font-bold text-foreground mb-4">
-              Every Item, <span className="text-primary">Adithya Certified</span>
+              Every Item, <span className="text-primary">Quality Verified</span>
             </h2>
             <p className="text-muted-foreground">
-              Our rigorous quality checklist covers every aspect of construction, from foundation to final handover. Each checkpoint is verified and certified by our expert engineers to ensure your project meets the highest standards of quality, safety, and durability.
+              Our rigorous quality checklist covers every aspect of construction, from foundation to final handover. Each checkpoint is verified by our expert engineers to ensure your project meets the highest standards of quality, safety, and durability.
             </p>
           </motion.div>
         </div>
@@ -222,7 +222,7 @@ const QualityChecklist = () => {
                             </div>
                             <div className="flex-1">
                               <p className="text-foreground font-medium">{item}</p>
-                              <p className="text-xs text-primary mt-1">✓ Adithya Certified</p>
+                              
                             </div>
                           </motion.div>
                         ))}

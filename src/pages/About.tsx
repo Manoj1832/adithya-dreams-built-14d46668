@@ -91,7 +91,7 @@ const About = () => {
                 <div className="relative flex-shrink-0">
                   <div className="absolute inset-0 gold-gradient-subtle rounded-full blur-xl opacity-40"></div>
                   <Avatar className="relative w-28 h-28 md:w-32 md:h-32 border border-[#25D366]/40 shadow-gold">
-                    <AvatarImage src="" alt="Proprietor profile" />
+                    <AvatarImage src="/assets/owner2.jpg" alt="Proprietor profile" />
                     <AvatarFallback className="text-2xl font-bold bg-primary/10 text-primary">P</AvatarFallback>
                   </Avatar>
                 </div>
