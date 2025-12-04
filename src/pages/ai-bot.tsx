@@ -1023,11 +1023,8 @@ const generateContactFallback = (): { text: string; cta: { label: string; href: 
   const whatsapp = "https://wa.me/916374507535?text=" + encodeURIComponent("Hi! I have a question about construction.");
   return {
     text:
-      "I don't have that information in my dataset. You can contact the owner for a precise answer.",
-    cta: [
-      { label: "Contact Owner", href: "/contact" },
-      { label: "WhatsApp Owner", href: whatsapp },
-    ],
+      "I don't have that information in my dataset. Please reach out on WhatsApp for a precise answer.",
+    cta: [{ label: "WhatsApp Owner", href: whatsapp }],
   };
 };
 const emphasizeNumbers = (text: string): (string | JSX.Element)[] => {

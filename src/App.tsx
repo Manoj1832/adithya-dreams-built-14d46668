@@ -27,10 +27,10 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, search, hash } = useLocation();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [pathname]);
+  }, [pathname, search, hash]);
   return null;
 };
 
