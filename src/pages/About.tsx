@@ -61,7 +61,7 @@ const About = () => {
                   <img
                     src="/assets/owner.png"
                     alt="Founder profile"
-                    className="relative w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border border-[#FFC107]/40 shadow-gold"
+                    className="relative w-28 h-28 md:w-32 md:h-32 rounded-xl object-cover border border-[#FFC107]/40 shadow-gold"
                   />
                 </div>
                 <div className="w-full">
@@ -90,7 +90,7 @@ const About = () => {
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="relative flex-shrink-0">
                   <div className="absolute inset-0 gold-gradient-subtle rounded-full blur-xl opacity-40"></div>
-                  <Avatar className="relative w-28 h-28 md:w-32 md:h-32 border border-[#25D366]/40 shadow-gold">
+                  <Avatar className="relative w-28 h-28 md:w-32 md:h-32 border border-[#25D366]/40 shadow-gold rounded-xl overflow-hidden">
                     <AvatarImage src="/assets/owner2.jpg" alt="Proprietor profile" />
                     <AvatarFallback className="text-2xl font-bold bg-primary/10 text-primary">P</AvatarFallback>
                   </Avatar>

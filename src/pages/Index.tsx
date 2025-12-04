@@ -13,26 +13,31 @@ const services = [
     icon: Home,
     title: "Residential House Construction",
     description: "Complete end-to-end residential construction with premium quality materials and expert craftsmanship.",
+    image: "https://images.pexels.com/photos/534220/pexels-photo-534220.jpeg?auto=compress&cs=tinysrgb&w=1920",
   },
   {
     icon: Building2,
     title: "Commercial Construction",
     description: "Professional commercial building solutions for offices, retail spaces, and industrial facilities.",
+    image: "https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=1920",
   },
   {
     icon: Pencil,
     title: "Architectural Designing",
     description: "Innovative architectural designs that blend aesthetics with functionality and sustainability.",
+    image: "https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&cs=tinysrgb&w=1920",
   },
   {
     icon: CheckCircle,
     title: "Structural Designing",
     description: "Robust structural engineering ensuring safety, durability, and compliance with standards.",
+    image: "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=1920",
   },
   {
     icon: FileCheck,
     title: "Building Plan Approval",
     description: "Hassle-free building plan approval services navigating all regulatory requirements.",
+    image: "https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg?auto=compress&cs=tinysrgb&w=1920",
   },
 ];
 
@@ -81,16 +86,26 @@ const Index = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-8 rounded-2xl shadow-soft hover:shadow-large transition-all duration-300 hover-lift group relative overflow-hidden"
+                className="rounded-2xl shadow-soft hover:shadow-large transition-all duration-300 hover-lift group relative overflow-hidden border border-border"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 gold-gradient-subtle rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-150"></div>
-                <div className="relative w-16 h-16 gold-gradient rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-gold">
-                  <service.icon className="w-8 h-8 text-foreground" />
+                <div className="relative">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-[220px] sm:h-[260px] md:h-[280px] object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
                 </div>
-                <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-muted-foreground mb-4">{service.description}</p>
+                <div className="p-6">
+                  <div className="relative w-12 h-12 gold-gradient rounded-xl flex items-center justify-center mb-4 shadow-gold">
+                    <service.icon className="w-6 h-6 text-foreground" />
+                  </div>
+                  <h3 className="text-lg font-heading font-semibold text-foreground mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-muted-foreground">{service.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>

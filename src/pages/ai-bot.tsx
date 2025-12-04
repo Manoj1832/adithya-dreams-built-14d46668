@@ -8,22 +8,29 @@ interface Message {
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
+  cta?: { label: string; href: string }[];
 }
 
-/** ========= Small Bot SVG (old) ========= */
 const BotLogo = ({ size = 20, className = "" }: { size?: number; className?: string }) => (
   <svg
     width={size}
     height={size}
     viewBox="0 0 24 24"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
   >
-    <rect x="3" y="5" width="18" height="14" rx="8" stroke="currentColor" strokeWidth="1.5" fill="none" />
-    <circle cx="9" cy="12" r="1.5" fill="currentColor" />
-    <circle cx="15" cy="12" r="1.5" fill="currentColor" />
-    <path d="M8 16h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <defs>
+      <linearGradient id="adithyaGold" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#D4AF37" />
+        <stop offset="40%" stopColor="#FFD54F" />
+        <stop offset="100%" stopColor="#B8860B" />
+      </linearGradient>
+    </defs>
+    <circle cx="12" cy="12" r="10" fill="none" stroke="url(#adithyaGold)" strokeWidth="2" />
+    <path d="M7 17 L12 6.5 L17 17" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M9.2 13.6 L14.8 13.6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    <circle cx="12" cy="6" r="0.9" fill="currentColor" />
+    <circle cx="17.5" cy="6.5" r="0.8" fill="#FFD54F" />
   </svg>
 );
 
@@ -36,9 +43,9 @@ const CONSTRUCTION_DATA = {
       cement: "Jsw, Kcp, or equivalent",
       steel: "Vela TMT or equivalent",
       brick: "Ordinary brick",
-      flooring: "Tiles @Rs.50/sq.ft",
-      doors: "Main door country teak/upvc windows",
-      electrical: "ISI Pipes, Eylles, Fybros",
+      flooring: "Tiles @₹50/sq.ft",
+      doors: "Main door country teak/UPVC windows",
+      electrical: "ISI Pipes, Anchor, Fybros",
       plumbing: "ISI Standard Pipe",
       fittings: "PLATO",
       innerPaint: "2 Coat putty, 1 coat primer (Tractor emulsion)",
@@ -51,14 +58,14 @@ const CONSTRUCTION_DATA = {
       cement: "Chettinadu, ultratech",
       steel: "Prime gold, Indrola TMT Bars",
       brick: "Wire cut brick",
-      flooring: "Tiles Rs.70/sq.ft",
-      doors: "Main door kerala teak/upvc windows",
-      electrical: "ISI Pipes, Haveels, GM Switches",
+      flooring: "Tiles @₹70/sq.ft",
+      doors: "Main door Kerala teak/UPVC windows",
+      electrical: "ISI Pipes, Havells, GM switches",
       plumbing: "Ashirvad, supreme",
       fittings: "JOHNSON, PARRYWARE",
       innerPaint: "2 Coat putty, 1 coat primer (Premium paint)",
       outerPaint: "Asian paints Ace Apex",
-      elevation: "Engineer choice",
+      elevation: "Engineer’s choice",
     },
     {
       name: "Luxury Package",
@@ -66,14 +73,14 @@ const CONSTRUCTION_DATA = {
       cement: "Ultratech, Ramco",
       steel: "TATA, JSW",
       brick: "Wire cut brick",
-      flooring: "Tile 90Rs/sqft",
-      doors: "Fully teak wood",
+      flooring: "Tiles @₹90/sq.ft",
+      doors: "Full teak wood",
       electrical: "ISI Pipes, Legrand",
-      plumbing: "Vajjeramplast, Finolex",
+      plumbing: "Ashirvad, Finolex",
       fittings: "PARRYWARE, JAQUAR",
       innerPaint: "3 Coat putty, 1 coat primer (Royale paint)",
-      outerPaint: "Asian paints Ace ultima",
-      elevation: "Client choice",
+      outerPaint: "Asian Paints Ace Ultima",
+      elevation: "Client’s choice",
     },
   ],
   houseConfigurations: {
@@ -251,7 +258,7 @@ const normalizeArea = (text: string): number | null => {
 };
 
 /** ========= Core Query Analyzer (merged logic) ========= */
-const analyzeQuery = (query: string) => {
+const analyzeQuery = (query: string): string | { text: string; cta: { label: string; href: string }[] } => {
   const lowerQuery = query.toLowerCase();
 
   // BHK questions
@@ -445,8 +452,7 @@ const analyzeQuery = (query: string) => {
     return "Hello! 👋 Welcome to Adithya Constructions. I'm here to help you build your dream home!\n\nI can assist you with:\n• 💰 Cost estimates (by area or BHK)\n• 🏠 BHK configurations (1BHK to 5BHK)\n• 📐 Plot size recommendations\n• 🏗 Construction timeline\n• 🎨 Materials & specifications\n• 📋 Documentation & approvals\n\nHow can I help you today?";
   }
 
-  // default fallback
-  return "I'd be happy to help! You can ask me about:\n\n• 💰 Cost calculations (sq.ft or BHK-based)\n• 🏠 House configurations (1BHK to 5BHK)\n• 📐 Plot sizes & recommendations\n• 🏗 Materials & construction details\n• ⏱ Timeline & phases\n• 📋 Approvals & legal aspects\n• 🎨 Interiors & finishing\n• 💳 Loan assistance\n• 🔧 Warranties & maintenance\n\nWhat would you like to know?";
+  return generateContactFallback();
 };
 
 /** ========= All generator/helper functions (from old + merged fixes) ========= */
@@ -515,7 +521,7 @@ const generateBrandRecommendations = (query: string) => {
 };
 
 const generateElectricalInfo = () => {
-  return `⚡ **Electrical Specifications:**\n\n**Standard Package:**\n• ISI Pipes, Eylles, Fybros switches\n• Basic MCB & distribution board\n\n**Premium Package:**\n• ISI Pipes, Havells switches\n• GM modular switches\n• Better aesthetics\n\n**Luxury Package:**\n• ISI Pipes, Legrand switches\n• Premium modular range\n• Smart home ready wiring\n\n💡 All packages include proper earthing and safety measures as per IS standards.`;
+  return `⚡ **Electrical Specifications:**\n\n**Standard Package:**\n• ISI Pipes, Anchor, Fybros switches\n• Basic MCB & distribution board\n\n**Premium Package:**\n• ISI Pipes, Havells switches\n• GM modular switches\n• Better aesthetics\n\n**Luxury Package:**\n• ISI Pipes, Legrand switches\n• Premium modular range\n• Smart home ready wiring\n\n💡 All packages include proper earthing and safety measures as per IS standards.`;
 };
 
 const generatePlumbingInfo = () => {
@@ -759,13 +765,22 @@ const ConstructionChatbot = () => {
 
     // Simulate processing delay then analyze
     setTimeout(() => {
-      const response = analyzeQuery(trimmed);
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: response,
-        timestamp: new Date(),
-      };
+      const result = analyzeQuery(trimmed);
+      const assistantMessage: Message =
+        typeof result === "string"
+          ? {
+              id: (Date.now() + 1).toString(),
+              role: "assistant",
+              content: result,
+              timestamp: new Date(),
+            }
+          : {
+              id: (Date.now() + 1).toString(),
+              role: "assistant",
+              content: result.text,
+              timestamp: new Date(),
+              cta: result.cta,
+            };
       setMessages((prev) => [...prev, assistantMessage]);
       setIsLoading(false);
       // scrollToBottom after message added
@@ -794,17 +809,17 @@ const ConstructionChatbot = () => {
   return (
     <>
       {/* Floating trigger button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-24 sm:bottom-6 right-4 z-50">
         {!open && (
           <motion.button
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setOpen(true)}
-            className="w-16 h-16 rounded-full gold-gradient shadow-gold flex items-center justify-center text-foreground border border-primary/30"
+            className="w-14 h-14 rounded-full gold-gradient shadow-gold flex items-center justify-center text-foreground border border-primary/30"
             aria-label="Open chat"
           >
-            <BotLogo size={28} />
+            <BotLogo size={22} />
           </motion.button>
         )}
       </div>
@@ -818,7 +833,7 @@ const ConstructionChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.98 }}
             transition={{ duration: 0.18 }}
-            className="fixed right-6 bottom-6 z-50 w-[360px] md:w-[420px] glass-card bg-card rounded-2xl shadow-large border-2 border-primary/20 overflow-hidden"
+            className="fixed right-4 bottom-24 sm:bottom-6 z-50 w-[90vw] sm:w-[360px] md:w-[420px] max-w-[420px] glass-card bg-card rounded-2xl shadow-large border-2 border-primary/20 overflow-hidden"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-primary/10">
@@ -857,7 +872,7 @@ const ConstructionChatbot = () => {
             </div>
 
             {/* Body */}
-            <div className={`flex flex-col ${minimized ? "h-12" : "h-[480px]"} transition-all`}>
+            <div className={`flex flex-col ${minimized ? "h-12" : "h-[420px] sm:h-[480px] max-h-[75vh]"} transition-all`}>
               {!minimized ? (
                 <>
                   {/* Quick action row */}
@@ -892,11 +907,26 @@ const ConstructionChatbot = () => {
                           <div
                             className={`inline-block max-w-[76%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
                               message.role === "user"
-                                ? "bg-primary text-primary-foreground"
-                                : "glass-card border border-primary/10 text-foreground"
+                                ? "bg-primary text-primary-foreground border border-primary/50"
+                                : "bg-card text-foreground border border-primary/30 shadow-medium"
                             }`}
                           >
-                            <div className="whitespace-pre-wrap">{message.content}</div>
+                          <div className="whitespace-pre-wrap">{formatMessage(message.content)}</div>
+                          {message.cta && message.cta.length > 0 && (
+                            <div className="flex gap-2 mt-2">
+                              {message.cta.map((a) => (
+                                <a
+                                  key={a.href}
+                                  href={a.href}
+                                  target={a.href.startsWith("http") ? "_blank" : undefined}
+                                  rel={a.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                  className="px-2 py-1 rounded-md text-xs border border-primary/30 hover:bg-primary/10"
+                                >
+                                  {a.label}
+                                </a>
+                              ))}
+                            </div>
+                          )}
                             <div className="text-[10px] text-muted-foreground mt-1 text-right">
                               {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                             </div>
@@ -989,3 +1019,52 @@ const ConstructionChatbot = () => {
 };
 
 export default ConstructionChatbot;
+const generateContactFallback = (): { text: string; cta: { label: string; href: string }[] } => {
+  const whatsapp = "https://wa.me/916374507535?text=" + encodeURIComponent("Hi! I have a question about construction.");
+  return {
+    text:
+      "I don't have that information in my dataset. You can contact the owner for a precise answer.",
+    cta: [
+      { label: "Contact Owner", href: "/contact" },
+      { label: "WhatsApp Owner", href: whatsapp },
+    ],
+  };
+};
+const emphasizeNumbers = (text: string): (string | JSX.Element)[] => {
+  const parts = text.split(/(₹\s?\d[\d,]*(?:\.\d+)?|\b\d[\d,]*(?:\.\d+)?\b)/g);
+  return parts.map((part, i) =>
+    part.match(/^(₹\s?\d[\d,]*(?:\.\d+)?|\b\d[\d,]*(?:\.\d+)?\b)$/)
+      ? (
+          <span key={`n-${i}`} className="font-semibold">
+            {part}
+          </span>
+        )
+      : part,
+  );
+};
+
+const formatBold = (text: string): (string | JSX.Element)[] => {
+  const segments = text.split(/(\*\*.+?\*\*)/g);
+  const mapped = segments.map((seg, idx) => {
+    if (seg.startsWith("**") && seg.endsWith("**")) {
+      return (
+        <span key={`b-${idx}`} className="font-semibold">
+          {seg.slice(2, -2)}
+        </span>
+      );
+    }
+    return emphasizeNumbers(seg);
+  });
+  return mapped.flat();
+};
+
+const formatMessage = (content: string): JSX.Element => {
+  const lines = content.split("\n");
+  return (
+    <div className="space-y-1">
+      {lines.map((line, i) => (
+        <div key={i}>{formatBold(line)}</div>
+      ))}
+    </div>
+  );
+};

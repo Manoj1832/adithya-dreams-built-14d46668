@@ -16,7 +16,7 @@ const Footer = () => {
               We build your dreams with precision, quality, and dedication.
             </p>
             <div className="flex items-center gap-3 mb-2">
-              <Avatar className="h-8 w-8 border border-background/30">
+              <Avatar className="h-8 w-8 border border-background/30 rounded-md overflow-hidden">
                 <AvatarImage src="/assets/owner.png" alt="Owner" />
                 <AvatarFallback className="text-xs font-bold">B</AvatarFallback>
               </Avatar>
@@ -27,8 +27,8 @@ const Footer = () => {
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <Avatar className="h-8 w-8 border border-background/30">
-                <AvatarImage src="" alt="Proprietor" />
+              <Avatar className="h-8 w-8 border border-background/30 rounded-md overflow-hidden">
+                <AvatarImage src="/assets/owner2.jpg" alt="Proprietor" />
                 <AvatarFallback className="text-xs font-bold">P</AvatarFallback>
               </Avatar>
               <p className="text-sm text-background/80">

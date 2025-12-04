@@ -87,7 +87,9 @@ const App = () => (
           </main>
           <Footer />
           <EntryWhatsAppModal />
-          <WhatsAppFloating />
+          <div className="hidden lg:block">
+            <WhatsAppFloating />
+          </div>
           <AdhiAI />
           <StickyContactBar />
           <ExitIntentPopup />

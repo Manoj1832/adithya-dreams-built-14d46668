@@ -90,8 +90,8 @@ const Contact = () => {
               className="space-y-8"
             >
               <div className="bg-card p-6 rounded-2xl shadow-medium border border-border flex items-center gap-6">
-                <div className="relative w-24 h-24 rounded-full p-[3px] gold-gradient-subtle shadow-gold">
-                  <Avatar className="w-full h-full">
+                <div className="relative w-24 h-24 rounded-xl p-[3px] gold-gradient-subtle shadow-gold">
+                  <Avatar className="w-full h-full rounded-xl overflow-hidden">
                     <AvatarImage src="/assets/owner.png" alt="Owner" />
                     <AvatarFallback className="text-xl font-bold">B</AvatarFallback>
                   </Avatar>
@@ -104,9 +104,9 @@ const Contact = () => {
               </div>
 
               <div className="bg-card p-6 rounded-2xl shadow-medium border border-border flex items-center gap-6">
-                <div className="relative w-24 h-24 rounded-full p-[3px] gold-gradient-subtle shadow-gold">
-                  <Avatar className="w-full h-full">
-                    <AvatarImage src="" alt="Proprietor" />
+                <div className="relative w-24 h-24 rounded-xl p-[3px] gold-gradient-subtle shadow-gold">
+                  <Avatar className="w-full h-full rounded-xl overflow-hidden">
+                    <AvatarImage src="/assets/owner2.jpg" alt="Proprietor" />
                     <AvatarFallback className="text-xl font-bold">P</AvatarFallback>
                   </Avatar>
                 </div>

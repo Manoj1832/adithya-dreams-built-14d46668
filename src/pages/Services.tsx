@@ -9,6 +9,8 @@ const services = [
     icon: Home,
     title: "Residential House Construction",
     description: "Complete end-to-end residential construction services from design to handover.",
+    image:
+      "https://images.pexels.com/photos/534220/pexels-photo-534220.jpeg?auto=compress&cs=tinysrgb&w=1920",
     features: [
       "Complete project management",
       "Quality materials sourcing",
@@ -22,6 +24,8 @@ const services = [
     icon: Building2,
     title: "Commercial Construction",
     description: "Professional construction solutions for offices, retail spaces, and industrial facilities.",
+    image:
+      "https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=1920",
     features: [
       "Office buildings & complexes",
       "Retail & shopping centers",
@@ -35,6 +39,8 @@ const services = [
     icon: Pencil,
     title: "Architectural Designing",
     description: "Innovative architectural designs that blend aesthetics with functionality.",
+    image:
+      "https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&cs=tinysrgb&w=1920",
     features: [
       "3D visualization & rendering",
       "Space planning & optimization",
@@ -48,6 +54,8 @@ const services = [
     icon: CheckCircle,
     title: "Structural Designing",
     description: "Robust structural engineering ensuring safety, durability, and compliance.",
+    image:
+      "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=1920",
     features: [
       "Load bearing analysis",
       "Framed Structure analysis",
@@ -60,6 +68,8 @@ const services = [
     icon: FileCheck,
     title: "Building Plan Approval",
     description: "Hassle-free building plan approval services navigating all regulatory requirements.",
+    image:
+      "https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg?auto=compress&cs=tinysrgb&w=1920",
     features: [
       "DTCP approval assistance",
       "Panchayat approval support",
@@ -133,9 +143,15 @@ const Services = () => {
                     </Link>
                   </Button>
                 </div>
-                <div className="flex-1">
-                  <div className="bg-background-secondary rounded-2xl p-12 shadow-soft aspect-square flex items-center justify-center">
-                    <service.icon className="w-48 h-48 text-primary/20" />
+                <div className="flex-1 w-full">
+                  <div className="relative rounded-2xl overflow-hidden shadow-medium border border-border">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-[320px] sm:h-[380px] md:h-[420px] object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-black/10 to-transparent" />
                   </div>
                 </div>
               </motion.div>

@@ -225,10 +225,13 @@ const Projects = () => {
       {/* Image Viewer */}
       <Dialog open={viewerOpen} onOpenChange={(open) => setViewerOpen(open)}>
         <DialogContent className="max-w-[92vw] md:max-w-[80vw] bg-transparent p-0 border-none shadow-none">
-          <DialogClose className="absolute right-3 top-3 rounded-full bg-black/70 text-white border border-white/30 p-2 shadow-medium hover:bg-black focus:outline-none focus:ring-2 focus:ring-white/70">
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
-          </DialogClose>
+          <button
+            aria-label="Close"
+            onClick={() => setViewerOpen(false)}
+            className="absolute right-3 top-3 z-50 rounded-full bg-black/75 text-white border border-white/40 p-2 shadow-large hover:bg-black focus:outline-none focus:ring-2 focus:ring-white/70"
+          >
+            <X className="h-5 w-5" />
+          </button>
           {(() => {
             const currentIdx = viewerId !== null ? filteredProjects.findIndex((p) => p.id === viewerId) : -1;
             const current = currentIdx >= 0 ? filteredProjects[currentIdx] : null;
@@ -258,7 +261,7 @@ const Projects = () => {
                     className="max-h-full max-w-full object-contain rounded-xl shadow-elevated"
                     loading="eager"
                   />
-                  <div className="absolute top-3 right-3 bg-background/70 backdrop-blur-md rounded-full px-3 py-1 text-xs">
+                  <div className="absolute top-3 right-14 z-40 bg-black/60 text-white backdrop-blur-md rounded-full px-3 py-1 text-xs border border-white/20">
                     {currentIdx + 1} / {filteredProjects.length}
                   </div>
                   <button
@@ -269,7 +272,7 @@ const Projects = () => {
                       const nextIdx = (idx - 1 + filteredProjects.length) % filteredProjects.length;
                       setViewerId(filteredProjects[nextIdx].id);
                     }}
-                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-background/70 backdrop-blur-md border border-border rounded-full px-3 py-2 text-sm shadow-medium hover:bg-background"
+                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white backdrop-blur-md border border-white/30 rounded-full px-3 py-2 text-sm shadow-medium hover:bg-black/60"
                   >
                     Prev
                   </button>
@@ -281,7 +284,7 @@ const Projects = () => {
                       const nextIdx = (idx + 1) % filteredProjects.length;
                       setViewerId(filteredProjects[nextIdx].id);
                     }}
-                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-background/70 backdrop-blur-md border border-border rounded-full px-3 py-2 text-sm shadow-medium hover:bg-background"
+                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white backdrop-blur-md border border-white/30 rounded-full px-3 py-2 text-sm shadow-medium hover:bg-black/60"
                   >
                     Next
                   </button>
