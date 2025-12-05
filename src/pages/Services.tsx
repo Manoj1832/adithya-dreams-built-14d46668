@@ -10,7 +10,7 @@ const services = [
     title: "Residential House Construction",
     description: "Complete end-to-end residential construction services from design to handover.",
     image:
-      "https://images.pexels.com/photos/534220/pexels-photo-534220.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "/assets/residential service.jpg",
     features: [
       "Complete project management",
       "Quality materials sourcing",
@@ -55,11 +55,11 @@ const services = [
     title: "Structural Designing",
     description: "Robust structural engineering ensuring safety, durability, and compliance.",
     image:
-      "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "/assets/structural design.jpg",
     features: [
       "Load bearing analysis",
       "Framed Structure analysis",
-      "Steel Structure analysis(PEB)",
+      "Steel Structure analysis (PEB)",
       "Cost-effective solutions",
     ],
   },

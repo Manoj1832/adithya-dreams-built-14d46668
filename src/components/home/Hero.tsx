@@ -6,6 +6,7 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 
 const Hero = () => {
   const slides = [
+    { src: "/assets/hero0.jpg", title: "The family is incomplete without a own home", sub: "Adithya ensures the Happy Customers" },
     { src: "/assets/hero1.jpg", title: "Build With Confidence", sub: "Residential & commercial projects" },
     { src: "/assets/hero2.jpg", title: "On-Time Delivery", sub: "Planned, tracked, delivered" },
     { src: "/assets/hero3.jpg", title: "Premium Materials", sub: "IS/ISO certified brands" },
