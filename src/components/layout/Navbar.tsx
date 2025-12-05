@@ -81,6 +81,14 @@ const Navbar = () => {
             </Link>
           </div>
 
+          <div className="flex-1 md:hidden px-2">
+            <div className="text-center">
+              <span className="text-sm font-heading font-bold bg-gradient-to-r from-[#D4AF37] via-[#FFC107] to-[#D4AF37] bg-clip-text text-transparent tracking-wide">
+                Adithya Constructions & Architects
+              </span>
+            </div>
+          </div>
+
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-5">
             <Link
