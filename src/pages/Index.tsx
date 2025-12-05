@@ -5,9 +5,11 @@ import ClientLogosMarquee from "@/components/lead/ClientLogosMarquee";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Building2, Home, Pencil, CheckCircle, FileCheck, ArrowRight, Phone, MessageCircle } from "lucide-react";
+import { Building2, Home, Pencil, CheckCircle, FileCheck, ArrowRight, Phone, MessageCircle, Calendar } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const services = [
   {
@@ -59,9 +61,74 @@ const StatCounter = ({ end, duration = 1500 }: { end: number; duration?: number 
 
 const Index = () => {
   const [open5S, setOpen5S] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
+  const [leadName, setLeadName] = useState("");
+  const [leadPhone, setLeadPhone] = useState("");
+
+  useEffect(() => {
+    try {
+      const shown = localStorage.getItem("registerModalShown");
+      if (!shown) setOpenRegister(true);
+    } catch {}
+  }, []);
+
+  const closeRegister = (persist = true) => {
+    setOpenRegister(false);
+    if (persist) {
+      try {
+        localStorage.setItem("registerModalShown", "1");
+      } catch {}
+    }
+  };
   return (
     <div className="min-h-screen">
       <Hero />
+
+      <Dialog open={openRegister} onOpenChange={(o) => (o ? setOpenRegister(true) : closeRegister())}>
+        <DialogContent className="sm:max-w-lg p-0 overflow-hidden border-primary/20">
+          <div className="relative">
+            <div className="absolute inset-0 premium-gradient-light opacity-20"></div>
+            <div className="p-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 gold-gradient rounded-xl flex items-center justify-center shadow-gold">
+                  <Calendar className="w-5 h-5 text-foreground" />
+                </div>
+                <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground">Free Build Plan Consultation</h3>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">Get a tailored plan, transparent cost, and expert guidance. Limited slots this week.</p>
+              <div className="grid grid-cols-1 gap-3 mb-4">
+                <div className="space-y-2">
+                  <Label htmlFor="leadName">Name</Label>
+                  <Input id="leadName" value={leadName} onChange={(e) => setLeadName(e.target.value)} placeholder="Your name" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="leadPhone">Phone</Label>
+                  <Input id="leadPhone" value={leadPhone} onChange={(e) => setLeadPhone(e.target.value)} placeholder="Phone number" />
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button variant="gold" className="flex-1" asChild onClick={() => closeRegister()}>
+                  <Link to="/appointment">Book Free Consultation</Link>
+                </Button>
+                <a href="https://wa.me/916374507535?text=Hi! I want a free build plan consultation." target="_blank" rel="noopener noreferrer" className="flex-1">
+                  <Button variant="outline" className="w-full gap-2 bg-[#25D366] text-white border-[#25D366] hover:bg-[#20BA5A]" onClick={() => closeRegister()}>
+                    <MessageCircle className="w-5 h-5" />
+                    WhatsApp
+                  </Button>
+                </a>
+              </div>
+              <div className="mt-3 flex items-center gap-3 text-xs text-muted-foreground">
+                <div className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 text-primary">Fast response</div>
+                <div className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 text-primary">Transparent pricing</div>
+                <div className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 text-primary">Expert team</div>
+              </div>
+              <div className="mt-4 text-center">
+                <button onClick={() => closeRegister()} className="text-xs text-muted-foreground hover:text-foreground">No thanks</button>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
       {/* Services Section */}
       <section className="py-20 px-4 lg:px-8">
         <div className="container mx-auto">
