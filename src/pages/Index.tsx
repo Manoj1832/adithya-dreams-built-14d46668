@@ -249,6 +249,30 @@ const Index = () => {
       </section>
 
       {/* Testimonials Section */}
+      <section className="py-20 px-4 lg:px-8">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-5xl mx-auto relative rounded-2xl overflow-hidden shadow-medium border border-border"
+          >
+            <img
+              src="/assets/5S.jpg"
+              alt="5S Quality Practice"
+              className="w-full h-[320px] sm:h-[380px] md:h-[420px] object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/15 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <h3 className="text-2xl md:text-3xl font-heading font-bold text-white">Our 5S Quality Practice</h3>
+              <p className="text-white/80 text-sm md:text-base mt-1">Sort • Set in Order • Shine • Standardize • Sustain</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
         <Testimonials />
       </motion.div>
