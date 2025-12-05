@@ -32,7 +32,7 @@ const Footer = () => {
                 <AvatarFallback className="text-xs font-bold">P</AvatarFallback>
               </Avatar>
               <p className="text-sm text-background/80">
-                Er. Premi T
+                Er. Premi T, B.E.
                 <br />
                 Proprietor • Operations & Client Relations
               </p>

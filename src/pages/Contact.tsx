@@ -111,7 +111,7 @@ const Contact = () => {
                   </Avatar>
                 </div>
                 <div>
-                  <h3 className="text-xl font-heading font-bold text-foreground">Er. Premi T</h3>
+                  <h3 className="text-xl font-heading font-bold text-foreground">Er. , B.E.</h3>
                   <p className="text-primary font-semibold">Proprietor • Operations & Client Relations</p>
                   <p className="text-sm text-muted-foreground">Premium client experience, documentation, approvals, and on-site coordination</p>
                 </div>
