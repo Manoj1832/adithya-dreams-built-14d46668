@@ -97,7 +97,7 @@ const About = () => {
                 </div>
                 <div className="w-full">
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-2xl md:text-3xl font-heading font-semibold text-foreground">Er. Premi T</h3>
+                    <h3 className="text-2xl md:text-3xl font-heading font-semibold text-foreground">Er. Premi T, B</h3>
                     <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/30">
                       Proprietor
                     </span>
