@@ -221,6 +221,22 @@
     animation: logoShineCycle 7s ease-in-out infinite;
     pointer-events: none;
   }
+
+  /* Text wipe shine overlay (keeps original text color) */
+  .text-wipe-shine {
+    position: relative;
+    display: inline-block;
+  }
+  .text-wipe-shine::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255, 193, 7, 0.75) 50%, rgba(255,255,255,0) 100%);
+    transform: translateX(-130%);
+    animation: textWipeShine 4.5s ease-in-out infinite;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
 }
 
 
@@ -262,6 +278,13 @@
   0%, 85% { left: -150%; opacity: 0; }
   90% { left: 0%; opacity: 0.6; }
   100% { left: 150%; opacity: 0; }
+}
+
+/* Wipe shine across text */
+@keyframes textWipeShine {
+  0%, 80% { transform: translateX(-130%); opacity: 0; }
+  90% { transform: translateX(0%); opacity: 1; }
+  100% { transform: translateX(130%); opacity: 0; }
 }
 
 @media (max-width: 480px) {
