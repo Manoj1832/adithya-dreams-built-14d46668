@@ -5,7 +5,7 @@ import ClientLogosMarquee from "@/components/lead/ClientLogosMarquee";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Building2, Home, Pencil, CheckCircle, FileCheck, ArrowRight, Phone, MessageCircle, Calendar } from "lucide-react";
+import { Building2, Home, Pencil, CheckCircle, FileCheck, ArrowRight, Phone, MessageCircle, Calendar, AlarmClock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -86,17 +86,25 @@ const Index = () => {
       <Dialog open={openRegister} onOpenChange={(o) => (o ? setOpenRegister(true) : closeRegister())}>
         <DialogContent className="sm:max-w-lg p-0 overflow-hidden border-primary/20">
           <div className="relative">
-            <div className="relative h-36 md:h-40">
-              <img src="/assets/hero0.jpg" alt="Consultation" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent" />
+          <div className="relative h-36 md:h-40">
+            <img src="/assets/hero0.jpg" alt="Consultation" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent" />
+          </div>
+          <div className="p-6">
+            <div className="mb-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/15 text-red-700 border border-red-600/30">
+              <AlarmClock className="w-4 h-4 animate-bounce" />
+              <span className="text-sm font-semibold">Free Consultation — Limited Slots Today</span>
+              <span className="relative w-2 h-2">
+                <span className="absolute inline-flex w-2 h-2 rounded-full bg-red-600 opacity-75 animate-ping"></span>
+                <span className="relative inline-flex w-2 h-2 rounded-full bg-red-600"></span>
+              </span>
             </div>
-            <div className="p-6">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 gold-gradient rounded-xl flex items-center justify-center shadow-gold">
-                  <Calendar className="w-5 h-5 text-foreground" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground">Free Build Plan Consultation</h3>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 gold-gradient rounded-xl flex items-center justify-center shadow-gold">
+                <Calendar className="w-5 h-5 text-foreground" />
               </div>
+              <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground">Free Build Plan Consultation</h3>
+            </div>
               <p className="text-sm text-muted-foreground mb-4">Get a tailored plan, transparent cost, and expert guidance. Limited slots this week.</p>
               <div className="grid grid-cols-1 gap-3 mb-4">
                 <div className="space-y-2">
@@ -147,6 +155,14 @@ const Index = () => {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Comprehensive construction and architectural solutions tailored to bring your vision to life
             </p>
+            <div className="mt-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/15 text-red-700 border border-red-600/30">
+              <AlarmClock className="w-4 h-4 animate-bounce" />
+              <span className="text-sm font-semibold">Free Consultation — Limited Slots</span>
+              <span className="relative w-2 h-2">
+                <span className="absolute inline-flex w-2 h-2 rounded-full bg-red-600 opacity-75 animate-ping"></span>
+                <span className="relative inline-flex w-2 h-2 rounded-full bg-red-600"></span>
+              </span>
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
