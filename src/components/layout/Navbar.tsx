@@ -82,10 +82,15 @@ const Navbar = () => {
           </div>
 
           <div className="flex-1 md:hidden px-2">
-            <div className="text-center">
-              <span className="text-sm font-heading font-bold bg-gradient-to-r from-[#D4AF37] via-[#FFC107] to-[#D4AF37] bg-clip-text text-transparent tracking-wide">
-                Adithya Constructions & Architects
-              </span>
+            <div className="flex justify-center">
+              <div className="px-3 py-1 rounded-full bg-black/35 backdrop-blur-sm border border-white/15 shadow-soft">
+                <span
+                  className="text-[13px] sm:text-sm leading-none font-heading font-semibold text-center bg-gradient-to-r from-[#D4AF37] via-[#FFC107] to-[#D4AF37] bg-clip-text text-transparent tracking-wide"
+                  style={{ WebkitTextStrokeWidth: 0.35, WebkitTextStrokeColor: "#111" }}
+                >
+                  Adithya Constructions & Architects
+                </span>
+              </div>
             </div>
           </div>
 
