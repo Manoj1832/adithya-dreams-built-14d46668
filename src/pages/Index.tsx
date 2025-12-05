@@ -60,7 +60,6 @@ const StatCounter = ({ end, duration = 1500 }: { end: number; duration?: number 
 };
 
 const Index = () => {
-  const [open5S, setOpen5S] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
   const [leadName, setLeadName] = useState("");
   const [leadPhone, setLeadPhone] = useState("");
@@ -87,7 +86,10 @@ const Index = () => {
       <Dialog open={openRegister} onOpenChange={(o) => (o ? setOpenRegister(true) : closeRegister())}>
         <DialogContent className="sm:max-w-lg p-0 overflow-hidden border-primary/20">
           <div className="relative">
-            <div className="absolute inset-0 premium-gradient-light opacity-20"></div>
+            <div className="relative h-36 md:h-40">
+              <img src="/assets/hero0.jpg" alt="Consultation" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent" />
+            </div>
             <div className="p-6">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 gold-gradient rounded-xl flex items-center justify-center shadow-gold">
@@ -110,7 +112,7 @@ const Index = () => {
                 <Button variant="gold" className="flex-1" asChild onClick={() => closeRegister()}>
                   <Link to="/appointment">Book Free Consultation</Link>
                 </Button>
-                <a href="https://wa.me/916374507535?text=Hi! I want a free build plan consultation." target="_blank" rel="noopener noreferrer" className="flex-1">
+                <a href={`https://wa.me/916374507535?text=Hi! I want a free build plan consultation.${leadName ? `%0AName: ${encodeURIComponent(leadName)}` : ""}${leadPhone ? `%0APhone: ${encodeURIComponent(leadPhone)}` : ""}`} target="_blank" rel="noopener noreferrer" className="flex-1">
                   <Button variant="outline" className="w-full gap-2 bg-[#25D366] text-white border-[#25D366] hover:bg-[#20BA5A]" onClick={() => closeRegister()}>
                     <MessageCircle className="w-5 h-5" />
                     WhatsApp
@@ -329,9 +331,9 @@ const Index = () => {
           >
             <button
               type="button"
-              onClick={() => setOpen5S(true)}
+              onClick={() => setOpenRegister(true)}
               className="block w-full"
-              aria-label="Open 5S image"
+              aria-label="Open registration"
             >
               <img
                 src="/assets/5S.jpg"
@@ -347,12 +349,6 @@ const Index = () => {
           </motion.div>
         </div>
       </section>
-
-      <Dialog open={open5S} onOpenChange={setOpen5S}>
-        <DialogContent className="sm:max-w-4xl">
-          <img src="/assets/5S.jpg" alt="5S Quality Practice" className="w-full h-auto" />
-        </DialogContent>
-      </Dialog>
 
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
         <Testimonials />
