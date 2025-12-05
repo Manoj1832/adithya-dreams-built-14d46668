@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Building2, Home, Pencil, CheckCircle, FileCheck, ArrowRight, Phone, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const services = [
   {
@@ -57,6 +58,7 @@ const StatCounter = ({ end, duration = 1500 }: { end: number; duration?: number 
 };
 
 const Index = () => {
+  const [open5S, setOpen5S] = useState(false);
   return (
     <div className="min-h-screen">
       <Hero />
@@ -256,22 +258,34 @@ const Index = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-5xl mx-auto relative rounded-2xl overflow-hidden shadow-medium border border-border"
+            className="max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-medium border border-border"
           >
-            <img
-              src="/assets/5S.jpg"
-              alt="5S Quality Practice"
-              className="w-full h-[320px] sm:h-[380px] md:h-[420px] object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/15 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <h3 className="text-2xl md:text-3xl font-heading font-bold text-white">Our 5S Quality Practice</h3>
-              <p className="text-white/80 text-sm md:text-base mt-1">Sort • Set in Order • Shine • Standardize • Sustain</p>
+            <button
+              type="button"
+              onClick={() => setOpen5S(true)}
+              className="block w-full"
+              aria-label="Open 5S image"
+            >
+              <img
+                src="/assets/5S.jpg"
+                alt="5S Quality Practice"
+                className="w-full h-[320px] sm:h-[380px] md:h-[420px] object-cover cursor-zoom-in"
+                loading="lazy"
+              />
+            </button>
+            <div className="p-6">
+              <h3 className="text-2xl md:text-3xl font-heading font-bold text-foreground">Our 5S Quality Practice</h3>
+              <p className="text-muted-foreground text-sm md:text-base mt-1">Sort • Set in Order • Shine • Standardize • Sustain</p>
             </div>
           </motion.div>
         </div>
       </section>
+
+      <Dialog open={open5S} onOpenChange={setOpen5S}>
+        <DialogContent className="sm:max-w-4xl">
+          <img src="/assets/5S.jpg" alt="5S Quality Practice" className="w-full h-auto" />
+        </DialogContent>
+      </Dialog>
 
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
         <Testimonials />
