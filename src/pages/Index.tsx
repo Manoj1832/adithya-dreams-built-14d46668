@@ -13,7 +13,7 @@ const services = [
     icon: Home,
     title: "Residential House Construction",
     description: "Complete end-to-end residential construction with premium quality materials and expert craftsmanship.",
-    image: "https://images.pexels.com/photos/534220/pexels-photo-534220.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    image: "/assets/residential service.jpg",
   },
   {
     icon: Building2,
@@ -31,7 +31,7 @@ const services = [
     icon: CheckCircle,
     title: "Structural Designing",
     description: "Robust structural engineering ensuring safety, durability, and compliance with standards.",
-    image: "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    image: "/assets/structural design.jpg",
   },
   {
     icon: FileCheck,
